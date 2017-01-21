@@ -9,7 +9,10 @@
 <body>
 	<div class="container">
 		<header>
-			<!-- <h1><?= $this->e($title) ?></h1> -->
+			<p>
+				<a href="/">Accueil</a> / 
+				<a href="/apropos">A propos ...</a>
+			</p>
 		</header>
 
 		<section>

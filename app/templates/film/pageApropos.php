@@ -2,7 +2,9 @@
 
 <?php $this->start('main_content') ?>
 
-	<p>La "Boîte à Films" constitue le projet final de 3 élèves formés par WebForce3 :</p>
+	<h1>Ma Boîte à films ...</h1>
+
+	<p>La "BAF" constitue le projet final de 3 élèves issus de WebForce3 :</p>
 	<ul>
 		<li>Tony Battoia</li>
 		<li>Franck Langlois</li>
@@ -11,7 +13,7 @@
 
 	<p>
 		L'idée principale de ce site est de proposer à tout internaute enregistré
-		un outil lui permettant de gérer de sa propre base de données cinématographiques.
+		un outil lui permettant de gérer sa propre base de données cinématographiques.
 	</p>
 
 	<h2>Fonctionnalités principales :</h2>

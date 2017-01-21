@@ -11,88 +11,144 @@ namespace Manager;
 class FilmManager extends \W\Manager\Manager {
 
 	// on crée ici nos propres méthodes spécialisées
-	// (en plus de celles dont on hérite de la classe mère)
+	// (en plus de celles héritées de la classe mère Manager)
 
+	//////////////////////            getDataFilmLiaison_1_Table            //////////////////////
+	//
+	// en entrée : 		idFilm 			= id du film dont on veut les données
+	//					tableLiaison 	= table de liaison du type 'film_table'
+	//					idL 			= id dans la table de liaison vers 'table'
+	//					table 			= 'table' dont on veut les données
+	//					libelle			= champ de 'table' qui est souvent intitulé 'libelle'
+	//					colonne 		= utilisé comme index dans le tableau associatif résultat
+	//
+	// en sortie : 		tableau associatif de données partielles sur un film
+	//
+	// 		Cette méthode sert à récupérer les données d' UNE SEULE table
+	//		associée à un film par le biais de la table de liaison.
+	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
+	//
+	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $colonne){
+		$selection = "
+			select
+					$table.$libelle as $colonne
+			from
+					films, $tableLiaison, $table
+
+			where	films.id	= $tableLiaison.idFilm
+				and	$table.id	= $tableLiaison.$idL
+				and	films.id	= $idFilm";
+
+		$requete = $this->dbh->prepare($selection);
+		$requete->bindValue(":idB", $idFilm);
+		$requete->execute();
+		return $requete->fetchAll();
+	}
+
+	//////////////////////            getDataFilmLiaison_2_Tables            //////////////////////
+	//
+	// en entrée : 		idFilm 			= id du film dont on veut les données
+	//					tableLiaison 	= table de liaison du type 'film_table1_table2'
+	//					idL1 / 2		= id dans la table de liaison vers 'table1' / 'table2'
+	//					table1 / 2		= 'table1' / 'table2' dont on veut les données
+	//					libelle1 / 2	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
+	//					colonne1 / 2	= utilisé comme index dans le tableau associatif résultat
+	//
+	// en sortie : 		tableau associatif de données partielles sur un film
+	//
+	// 		Cette méthode sert à récupérer les données de DEUX tables
+	//		associées à un film par le biais de la table de liaison.
+	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
+	//
+	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1, $colonne1, $idL2, $table2, $libelle2, $colonne2){
+		$selection = "
+			select
+					$table1.$libelle1 as $colonne1,
+					$table2.$libelle2 as $colonne2
+			from
+					films, $tableLiaison, $table1, $table2
+
+			where	$table1.id	= $tableLiaison.$idL1
+				and	$table2.id	= $tableLiaison.$idL2
+				and	films.id	= $tableLiaison.idFilm
+				and	films.id	= $idFilm";
+
+		$requete = $this->dbh->prepare($selection);
+		$requete->bindValue(":idB", $idFilm);
+		$requete->execute();
+		return $requete->fetchAll();
+	}
 
 	///////////////////////////////          getFilm          ////////////////////////////////
 	//
 	// en entrée : 		id du film en BDD
-	// en sortie : 		tableau de données
+	// en sortie : 		tableau associatif des données de l'ensemble du film
 	//
 	// 		Cette méthode sert à l'affichage de la Fiche d'un film.
 	//
+	public function getFilm($id){
 
-	public function getFilm($id)
-	{
+		// initialisation du tableau qui contiendra toutes les infos du film
+		$film = [];
+
 		if( ! is_numeric($id) ){
 			return false;
 		}
 
+		/////////////////////////////		données directes de la table 'films' :
+		//
 		$selection = "
 			select
-				fi.idAllocine,
-				fi.titreFr,
-				fi.titreOr,
-				fi.anneeProd,
-				fi.dateSortieFr,
-				fi.duree,
-				fi.synopsis,
-				fi.urlAffiche,
-				fi.urlBA,
-				fi.budget,
-				fi.bof,
-				fi.noteIMDB,
-				fi.nbVotesIMDB"
-				// ,
-
-				// di.libelle	as distributeur,
-				// di.url		as urlDistrib,
-				// ty.libelle	as typeFilm,
-				// co.libelle	as couleur,
-				// ce.libelle	as censure,
-				// la.libelle	as langue,
-				// ge.libelle	as genre,
-				// mc.libelle	as motsCles,
-				// na.libelle	as nationalite,
-
-				// pr.libelle	as profession,
-				// pe.prenom_nom	as prenom_nom
-
-
-				." from
-					films fi"
-					// , distributeurs di, typesfilms ty, couleurs co, censures ce, film_langue fl, langues la,
-					// film_genre fg, genres ge, film_motcle fm, motscles mc, film_nationalite fn, nationalites na,
-					// film_personne_profession fpp, personnes pe, professions pr
-
-				." where
-						fi.idAllocine		= :idB"
-					// and	fi.idDistributeur	= di.id
-					// and	fi.idTypeFilm		= ty.id
-					// and	fi.idCouleur		= co.id
-					// and	fi.idCensure		= ce.id
-					// and	fi.id				= fl.idFilm
-					// and	fl.idLangue			= la.id
-
-					// and	fg.idFilm			= fi.id
-					// and	fg.idGenre			= ge.id
-					// and fm.idFilm			= fi.id
-					// and fm.idMotCle			= mc.id
-					// and fn.idFilm			= fi.id
-					// and fn.idNationalite	= na.id
-
-					// and fpp.idFilm 			= fi.id
-					// and fpp.idPersonne		= pe.id
-					// and fpp.idProfession	= pr.id
-
-		;
-
+					titreFr,		titreOr,		anneeProd,	dateSortieFr,	duree,		synopsis,
+					urlAffiche,		urlBA,			budget,		bof,			noteIMDB,	nbVotesIMDB,
+					idAllocine
+			from
+					films
+			where
+					id	= :idB";
 
 		$requete = $this->dbh->prepare($selection);
 		$requete->bindValue(":idB", $id);
 		$requete->execute();
+		$film[] = $requete->fetch();   // PDO::FETCH_ASSOC    ne passe pas, cf + bas aussi **************************************************
 
-		return $requete->fetch(); // PDO::FETCH_ASSOC    ne passe pas ...
+		///////////////////		données liées à la table 'films' par un 'idXxx' :
+		//
+		$selection = "
+			select
+					di.libelle	as distributeur,	di.url		as urlDistributeur,		ty.libelle	as typeFilm,
+					co.libelle	as couleur,			ce.libelle	as censure
+			from
+					films fi,	distributeurs di,	typesfilms ty,	couleurs co,	censures ce
+			where
+					fi.idDistributeur	= di.id
+				and	fi.idTypeFilm		= ty.id
+				and	fi.idCouleur		= co.id
+				and	fi.idCensure		= ce.id
+				and	fi.id		= :idB";
+
+		$requete = $this->dbh->prepare($selection);
+		$requete->bindValue(":idB", $id);
+		$requete->execute();
+		$film[] = $requete->fetch();
+
+		///////////////////		données liées à la table 'films' par 1 table de liaison simple :
+		//
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_langue", "idLangue", "langues", "libelle", "langue");
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_genre", "idGenre", "genres", "libelle", "genre");
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_motcle", "idMotCle", "motscles", "libelle", "motcle");
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_nationalite", "idNationalite", "nationalites", "libelle", "nationalite");
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_selection", "idSelection", "selections", "libelle", "selection");
+
+		///////////////////		données liées à la table 'films' par 1 table de liaison double :
+		//
+		$film[] = $this->getDataFilmLiaison_2_Tables(
+			$id, "film_personne_profession",
+			"idProfession", "professions", "libelle", "prof",
+			"idPersonne", "personnes", "prenom_nom", "nom");
+
+		// La méthode retourne le film complet :
+		return $film;
 	}
 }
 

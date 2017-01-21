@@ -20,7 +20,7 @@ class UserController extends Controller
 			$manager->insert($_POST['tabForm']);
 			$this->redirectToRoute('accueil');
 		}else{
-			$this->show('user/inscription');			
+			$this->show('user/pageInscription');			
 		}
 	}
 
@@ -40,7 +40,7 @@ class UserController extends Controller
 			}
 		}
 		else{
-			$this->show('user/connexion');
+			$this->show('user/pageConnexion');
 		}
 	}
 
