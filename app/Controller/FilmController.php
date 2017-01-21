@@ -9,27 +9,27 @@ use \Manager\FilmManager;
 class FilmController extends Controller
 {
 
-	// contenu de la page d'accueil par défaut
+	// contenu de la page d'accueil
 	public function accueil()
 	{
-		$this->show('default/accueil');
-		//                       \_> appelle accueil.php    (dans le répertoire 'default' des templates)
+		$this->show('film/pageAccueil');
+		//                       \_> appelle accueil.php    (dans le répertoire 'film' des templates)
 	}
 
 	// contenu de la page "A propos"
 	public function aPropos()
 	{
-		$this->show('default/apropos');
+		$this->show('film/pageApropos');
 	}
 
-	// contenu de la page "Fiche du film"
+	// fournit toutes les données sur un film
 	public function afficherFilm($id)
 	{
 		$manager = new FilmManager();
-		$film = $manager->find($id);
+		$film = $manager->getFilm($id);
 
-		$this->show('default/ficheFilm',
-		//                          \_> appelle ficheFilm.php
+		$this->show('film/pageFilm',
+		//                       \_> appelle pageFilm.php
 
 	                ['film' => $film] );
 	}
@@ -37,12 +37,12 @@ class FilmController extends Controller
 	// contenu de la page "Palmes d'Or"
 	public function listerPalmesOr()
 	{
-		$this->show('default/listePalmesOr');
+		$this->show('film/pagePalmesOr');
 	}
 
 	// contenu de la page "Palmes d'Or"
 	public function listerCriteres()
 	{
-		$this->show('default/listeCriteres');
+		$this->show('film/pageCriteres');
 	}
 }

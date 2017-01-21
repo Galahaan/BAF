@@ -1,1 +1,1 @@
-{"virtualbox":{"/var/www":{"mount_options":["dmode=777","fmode=666"],"guestpath":"/var/www","hostpath":"C:/Users/Etudiant/Desktop/Dropbox/projet_BAF_W","disabled":false,"__vagrantfile":true}}}
+{"virtualbox":{"/var/www":{"mount_options":["dmode=777","fmode=666"],"guestpath":"/var/www","hostpath":"D:/DS/webdev/BAF","disabled":false,"__vagrantfile":true}}}

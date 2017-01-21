@@ -2,14 +2,14 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title><?= $this->e($title) ?></title>
+	<title>ma BAF - <?= $this->e($title) ?></title>
 
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
 </head>
 <body>
 	<div class="container">
 		<header>
-			<h1><?= $this->e($title) ?></h1>
+			<!-- <h1><?= $this->e($title) ?></h1> -->
 		</header>
 
 		<section>

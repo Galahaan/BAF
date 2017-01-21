@@ -6,18 +6,18 @@
 		/////////////////////////////       Gestion des films       /////////////////////////////
 		// => création du FilmController
 
-		['GET', '/', 'Film#accueil', 'accueil'],
+		['GET', '/', 'Film#accueil', 'pageAccueil'],
 
-		['GET', '/apropos', 'Film#aPropos', 'apropos'],
+		['GET', '/apropos', 'Film#aPropos', 'pageApropos'],
 		//  quand l'url finit par "/apropos"
 		//  => ça appelle la fonction     aPropos()     du FilmController.php
-		//  => et le contenu du paragraphe à insérer dans le layout de la page est dans apropos.php
+		//  => et le contenu du paragraphe à insérer dans le layout de la page est dans pageApropos.php
 
-		['GET', '/afficherFilm/[i:id]', 'Film#afficherFilm', 'ficheFilm'],
+		['GET', '/film/[i:id]', 'Film#afficherFilm', 'pageFilm'],
 
-		['GET', '/listerPalmesOr', 'Film#listerPalmesOr', 'listePalmesOr'],
+		['GET', '/listerPalmesOr', 'Film#listerPalmesOr', 'pagePalmesOr'],
 
-		['GET', '/listerCriteres', 'Film#listerCriteres', 'listeCriteres'],
+		['GET', '/listerCriteres', 'Film#listerCriteres', 'pageCriteres'],
 
 
 		//////////////////////////       Gestion des utilisateurs       /////////////////////////
@@ -26,7 +26,7 @@
 		// il faudra vérifier la table 'user' dans le fichier app\config.php
 		// et peut-être faire une ou 2 modifs
 
-		['GET|POST', '/inscription', 'User#inscription', 'inscription'],
-		['GET|POST', '/connexion', 'User#connexion', 'connexion'],
-		['GET', '/deconnexion', 'User#deconnexion', 'deconnexion'],
+		['GET|POST', '/inscription', 'User#inscription', 'pageInscription'],
+		['GET|POST', '/connexion', 'User#connexion', 'pageConnexion'],
+		['GET', '/deconnexion', 'User#deconnexion', 'pageDeconnexion'],
 	);
