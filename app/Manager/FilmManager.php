@@ -13,6 +13,28 @@ class FilmManager extends \W\Manager\Manager {
 	// on crée ici nos propres méthodes spécialisées
 	// (en plus de celles héritées de la classe mère Manager)
 
+
+	// Retourne la liste des id des films ayant reçu la palme d'Or à Cannes
+	public function getPalmesOr()
+	{
+		$liste = [];
+		$select = "select * from selections where libelle = \"Palme d'Or\"";
+		$requete = $this->dbh->prepare($select);
+		$requete->execute();
+		$liste[] = $requete->fetch();
+		$select = "select		f.id, f.titreFr, f.anneeProd, f.urlAffiche, fs.annee as anneeSel
+						from		film_selection fs, selections s, films f
+						where		s.libelle		= \"Palme d'Or\"
+							and		fs.idSelection	= s.id
+							and		fs.idFilm		= f.id
+						order by	fs.annee desc";
+		$requete = $this->dbh->prepare($select);
+		$requete->execute();
+		$liste[] = $requete->fetchAll();
+		return $liste;
+	}
+
+
 	//////////////////////            getDataFilmLiaison_1_Table            //////////////////////
 	//
 	// en entrée : 		idFilm 			= id du film dont on veut les données
@@ -29,17 +51,26 @@ class FilmManager extends \W\Manager\Manager {
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
 	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $colonne){
-		$selection = "
+
+		// Cas particulier de la table 'film_selection' : on doit récupérer l'année de la récompense
+		if($tableLiaison == "film_selection"){
+			$complement = ", $tableLiaison.annee as anneeRecompense";
+		}
+		else{
+			$complement = "";
+		}
+
+		$select = "
 			select
 					$table.$libelle as $colonne
+					$complement
 			from
 					films, $tableLiaison, $table
 
 			where	films.id	= $tableLiaison.idFilm
 				and	$table.id	= $tableLiaison.$idL
 				and	films.id	= $idFilm";
-
-		$requete = $this->dbh->prepare($selection);
+		$requete = $this->dbh->prepare($select);
 		$requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
@@ -61,7 +92,7 @@ class FilmManager extends \W\Manager\Manager {
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
 	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1, $colonne1, $idL2, $table2, $libelle2, $colonne2){
-		$selection = "
+		$select = "
 			select
 					$table1.$libelle1 as $colonne1,
 					$table2.$libelle2 as $colonne2
@@ -72,8 +103,7 @@ class FilmManager extends \W\Manager\Manager {
 				and	$table2.id	= $tableLiaison.$idL2
 				and	films.id	= $tableLiaison.idFilm
 				and	films.id	= $idFilm";
-
-		$requete = $this->dbh->prepare($selection);
+		$requete = $this->dbh->prepare($select);
 		$requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
@@ -97,7 +127,7 @@ class FilmManager extends \W\Manager\Manager {
 
 		/////////////////////////////		données directes de la table 'films' :
 		//
-		$selection = "
+		$select = "
 			select
 					titreFr,		titreOr,		anneeProd,	dateSortieFr,	duree,		synopsis,
 					urlAffiche,		urlBA,			budget,		bof,			noteIMDB,	nbVotesIMDB,
@@ -106,15 +136,14 @@ class FilmManager extends \W\Manager\Manager {
 					films
 			where
 					id	= :idB";
-
-		$requete = $this->dbh->prepare($selection);
+		$requete = $this->dbh->prepare($select);
 		$requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();   // PDO::FETCH_ASSOC    ne passe pas, cf + bas aussi **************************************************
 
 		///////////////////		données liées à la table 'films' par un 'idXxx' :
 		//
-		$selection = "
+		$select = "
 			select
 					di.libelle	as distributeur,	di.url		as urlDistributeur,		ty.libelle	as typeFilm,
 					co.libelle	as couleur,			ce.libelle	as censure
@@ -126,8 +155,7 @@ class FilmManager extends \W\Manager\Manager {
 				and	fi.idCouleur		= co.id
 				and	fi.idCensure		= ce.id
 				and	fi.id		= :idB";
-
-		$requete = $this->dbh->prepare($selection);
+		$requete = $this->dbh->prepare($select);
 		$requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();

@@ -15,9 +15,9 @@
 
 		['GET', '/film/[i:id]', 'Film#afficherFilm', 'pageFilm'],
 
-		['GET', '/listerPalmesOr', 'Film#listerPalmesOr', 'pagePalmesOr'],
+		['GET', '/palmesOr', 'Film#listerPalmesOr', 'pagePalmesOr'],
 
-		['GET', '/listerCriteres', 'Film#listerCriteres', 'pageCriteres'],
+		['GET|POST', '/criteres', 'Film#listerCriteres', 'pageCriteres'],
 
 
 		//////////////////////////       Gestion des utilisateurs       /////////////////////////

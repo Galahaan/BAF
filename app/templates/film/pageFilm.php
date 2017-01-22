@@ -75,24 +75,23 @@
 	<!-- § sur les différentes valeurs possibles et multiples de ses sélections -->
 		<?php if( ! isset( $film[6][0]['selection'] ) ) : ?>
 			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
-		<?php elseif( isset( $film[6][1] ) ) : ?>
-			<p>Sélections officielles / officieuses : 
-			<?php foreach($film[6] as $selections) : ?>
-				<?php foreach($selections as $selection) : ?>
-					<?= "$selection " ?>
-				<?php endforeach ?>
-			<?php endforeach ?>
-			</p>
 		<?php else : ?>
-			<p>Sélection officielle / officieuse :
-				<?= $film[6][0]['selection'] ?>
+			<p>
+				<?php foreach($film[6] as $selection) : ?>
+					<a href="/">
+						<?= $selection['selection'] ?>
+					</a>
+					<?= " (". $selection['anneeRecompense'] .") " ?>
+				<?php endforeach ?>
 			</p>
 		<?php endif ?>
 	<!-- fin du § sur la sélection -->
 
 	<p><?= $film[0]['synopsis'] ?></p>
 	<?php if( $film[0]['urlBA'] != 0 ) : ?>
-		<a href="http://www.allocine.fr/video/player_gen_cmedia=<?= $film[0]['urlBA'] ?>&cfilm=<?= $film[0]['idAllocine'] ?>.html">Bande annonce</a>
+		<a href="http://www.allocine.fr/video/player_gen_cmedia=<?= $film[0]['urlBA'] ?>&cfilm=<?= $film[0]['idAllocine'] ?>.html" target="_blank">
+			Bande annonce
+		</a>
 	<?php endif ?>
 	<?= $film[0]['budget'] == 0 ? "" : "<p>Budget : " . $film[0]['budget'] . "</p>" ?>
 	<?= $film[0]['bof'] == 0 ? "" : "<p>Box office : " . $film[0]['bof'] . "</p>" ?>
@@ -102,7 +101,7 @@
 	<!-- § sur les différentes valeurs possibles du distributeur -->
 		<?php if( $film[1]['distributeur'] != "Inconnu" ) : ?>
 			<?php if( $film[1]['urlDistributeur'] != "" ) : ?>
-				<?= "<p>Distributeur : <a href=\"" . $film[1]['urlDistributeur'] . "\">" . $film[1]['distributeur'] . "</a></p>" ?>
+				<?= "<p>Distributeur : <a href=\"" . $film[1]['urlDistributeur'] . "\" target=\"_blank\">" . $film[1]['distributeur'] . "</a></p>" ?>
 			<?php else : ?>
 				<?= "<p>Distributeur : " . $film[1]['distributeur'] . "</p>" ?>
 			<?php endif ?>
