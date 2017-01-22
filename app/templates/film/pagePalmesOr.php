@@ -16,7 +16,7 @@
 
 	<?php foreach($resultat[1] as $film) : ?>
 		<p>
-			<a href="/film/<?= $film['id'] ?>" target="_blank">
+			<a href="/film/<?= $film['id'] ?>" >
 				<img src="<?= $film['urlAffiche'] ?>" >
 				<?=
 					$film['anneeSel']
