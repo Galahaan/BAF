@@ -52,18 +52,22 @@ class FilmManager extends \W\Manager\Manager {
 	//
 	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $colonne){
 
-		// Cas particulier de la table 'film_selection' : on doit récupérer l'année de la récompense
+		// Cas particulier de la table 'film_selection' : on récupère l'année de la récompense
+		$complement1 = "";
 		if($tableLiaison == "film_selection"){
-			$complement = ", $tableLiaison.annee as anneeRecompense";
-		}
-		else{
-			$complement = "";
+			$complement1 = ", $tableLiaison.annee as anneeRecompense";
 		}
 
+		// Cas particulier de la table 'film_selection', voire plus tard, des autres tables  :
+		// on récupère le chemin écrit dans routes.php pour faire un lien vers la liste des films de ce thème
+		$complement2 = "";
+		if($tableLiaison == "film_selection"){
+			$complement2 = ", $table.routeMVC ";
+		}
 		$select = "
 			select
 					$table.$libelle as $colonne
-					$complement
+					$complement1 $complement2
 			from
 					films, $tableLiaison, $table
 

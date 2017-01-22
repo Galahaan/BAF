@@ -78,7 +78,7 @@
 		<?php else : ?>
 			<p>
 				<?php foreach($film[6] as $selection) : ?>
-					<a href="/">
+					<a href="/<?= $selection['routeMVC'] ?>">
 						<?= $selection['selection'] ?>
 					</a>
 					<?= " (". $selection['anneeRecompense'] .") " ?>
