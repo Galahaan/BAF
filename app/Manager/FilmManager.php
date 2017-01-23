@@ -13,27 +13,46 @@ class FilmManager extends \W\Manager\Manager {
 	// on crée ici nos propres méthodes spécialisées
 	// (en plus de celles héritées de la classe mère Manager)
 
-
-	// Retourne la liste des id des films ayant reçu la palme d'Or à Cannes
-	public function getPalmesOr()
-	{
+	/////////////////////////////            getSelection            /////////////////////////////
+	//
+	// en entrée : 		theme 	= thème de la sélection (ex.: Palmes d'Or, 007, Césars, ...)
+	//
+	// en sortie : 		liste des films appartenant à ce thème
+	//
+	// 		Cette méthode retourne une sélection de films appartenant à un thème.
+	//		associée à un film par le biais de la table de liaison.
+	//
+	public function getSelection($theme){
 		$liste = [];
-		$select = "select * from selections where libelle = \"Palme d'Or\"";
+		$select = "select * from selections where theme = $theme";
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
 		$liste[] = $requete->fetch();
-		$select = "select		f.id, f.titreFr, f.anneeProd, f.urlAffiche, fs.annee as anneeSel
+
+		// si on est dans le cas d'un thème 'récompense', donc décernée une certaine année X,
+		// on trie les résultats de la sélection selon cette année X,
+		// sinon on trie selon l'année de production du film :
+		$select = "select count(fs.annee) as nb from film_selection fs, selections s where s.theme = $theme and fs.idSelection = s.id";
+		$requete = $this->dbh->prepare($select);
+		$requete->execute();
+		$resultat = $requete->fetch();
+		if( $resultat['nb'] != 0 ){
+			$orderBy = " order by	fs.annee desc";		// cas où l'année est connue
+		}
+		else{
+			$orderBy = " order by	f.anneeProd desc";	// cas où l'année est vide
+		}
+		$select = "select	f.id, f.titreFr, f.anneeProd, f.urlAffiche, fs.annee as anneeSel
 						from		film_selection fs, selections s, films f
-						where		s.libelle		= \"Palme d'Or\"
+						where		s.theme		= $theme
 							and		fs.idSelection	= s.id
 							and		fs.idFilm		= f.id
-						order by	fs.annee desc";
+						".$orderBy;
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
 		$liste[] = $requete->fetchAll();
 		return $liste;
 	}
-
 
 	//////////////////////            getDataFilmLiaison_1_Table            //////////////////////
 	//
@@ -52,17 +71,19 @@ class FilmManager extends \W\Manager\Manager {
 	//
 	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $colonne){
 
-		// Cas particulier de la table 'film_selection' : on récupère l'année de la récompense
+		// Cas particulier de la table 'film_selection' : on récupère l'année de la 'récompense'
 		$complement1 = "";
 		if($tableLiaison == "film_selection"){
 			$complement1 = ", $tableLiaison.annee as anneeRecompense";
 		}
 
 		// Cas particulier de la table 'film_selection', voire plus tard, des autres tables  :
-		// on récupère le chemin écrit dans routes.php pour faire un lien vers la liste des films de ce thème
+		// on récupère le thème de la sélection, écrit dans routes.php,
+		// pour faire un lien vers la liste des films de ce thème.
+		// (de façon plus générique, on récupère la FIN DU CHEMIN écrit dans routes.php)
 		$complement2 = "";
 		if($tableLiaison == "film_selection"){
-			$complement2 = ", $table.routeMVC ";
+			$complement2 = ", $table.theme ";
 		}
 		$select = "
 			select
@@ -170,7 +191,7 @@ class FilmManager extends \W\Manager\Manager {
 		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_genre", "idGenre", "genres", "libelle", "genre");
 		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_motcle", "idMotCle", "motscles", "libelle", "motcle");
 		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_nationalite", "idNationalite", "nationalites", "libelle", "nationalite");
-		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_selection", "idSelection", "selections", "libelle", "selection");
+		$film[] = $this->getDataFilmLiaison_1_Table($id, "film_selection", "idSelection", "selections", "libelle", "libelle");
 
 		///////////////////		données liées à la table 'films' par 1 table de liaison double :
 		//

@@ -2,8 +2,15 @@
 	
 	$w_routes = array(
 
+		/////////////////////////////           Default W           /////////////////////////////
+		//
+		// => utilisation du DefaultController
+
+		['GET', '/docw', 'Default#docW', 'docW'],
+
 
 		/////////////////////////////       Gestion des films       /////////////////////////////
+		//
 		// => création du FilmController
 
 		['GET', '/', 'Film#accueil', 'pageAccueil'],
@@ -15,12 +22,13 @@
 
 		['GET', '/film/[i:id]', 'Film#afficherFilm', 'pageFilm'],
 
-		['GET', '/palmesOr', 'Film#listerPalmesOr', 'pagePalmesOr'],
+		['GET', '/selections/[a:theme]', 'Film#listerSelections', 'pageSelections'],
 
 		['GET|POST', '/criteres', 'Film#listerCriteres', 'pageCriteres'],
 
 
 		//////////////////////////       Gestion des utilisateurs       /////////////////////////
+		//
 		// => création du UserController
 
 		// il faudra vérifier la table 'user' dans le fichier app\config.php

@@ -10,8 +10,8 @@
 	<div class="container">
 		<header>
 			<p>
-				<a href="/">Accueil</a> / 
-				<a href="/apropos">A propos ...</a>
+				<a href="<?= $this->url('pageAccueil') ?>">Accueil</a> / 
+				<a href="<?= $this->url('pageApropos') ?>">A propos</a>
 			</p>
 		</header>
 

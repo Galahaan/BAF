@@ -73,15 +73,13 @@
 	<!-- fin du § sur le genre -->
 
 	<!-- § sur les différentes valeurs possibles et multiples de ses sélections -->
-		<?php if( ! isset( $film[6][0]['selection'] ) ) : ?>
+		<?php if( ! isset( $film[6][0]['libelle'] ) ) : ?>
 			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 		<?php else : ?>
 			<p>
 				<?php foreach($film[6] as $selection) : ?>
-					<a href="/<?= $selection['routeMVC'] ?>">
-						<?= $selection['selection'] ?>
-					</a>
-					<?= " (". $selection['anneeRecompense'] .") " ?>
+					<a href="<?= $this->url('pageSelections', ['theme' => $selection['theme']]) ?>"><?= $selection['libelle'] ?></a>
+					<?= ($selection['anneeRecompense'] != "") ? " (". $selection['anneeRecompense'] .") " : ""?>
 				<?php endforeach ?>
 			</p>
 		<?php endif ?>

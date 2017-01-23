@@ -12,7 +12,6 @@ class FilmController extends Controller
 	public function accueil()
 	{
 		$this->show('film/pageAccueil');
-		//                       \_> appelle accueil.php    (dans le répertoire 'film' des templates)
 	}
 
 	public function aPropos()
@@ -26,17 +25,17 @@ class FilmController extends Controller
 		$film = $manager->getFilm($id);
 		//debug($film);
 		$this->show( 'film/pageFilm',
-		//                       \_> appelle pageFilm.php
+		//                       \_> appelle pageFilm.php	(dans le répertoire 'film' des templates)
 
 	                ['film' => $film] );
 		//                       \_> avec ce tableau associatif en paramètre
 	}
 
-	public function listerPalmesOr()
+	public function listerSelections($theme)
 	{
 		$manager = new FilmManager();
-		$resultat = $manager->getPalmesOr();
-		$this->show('film/pagePalmesOr', ['resultat' => $resultat]);
+		$resultat = $manager->getSelection("\"" . $theme . "\"");
+		$this->show('film/pageSelections', ['resultat' => $resultat]);
 	}
 
 	public function listerCriteres()
