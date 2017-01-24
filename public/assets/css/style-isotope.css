@@ -44,7 +44,7 @@
         width: 30px;
     }
 
-    /*  Section CUBE genre  */
+    /*  Section CUBE  */
     
     .taille_a{
         position: absolute;
@@ -91,19 +91,19 @@
         transition: 1s;
     }
 
-    /*  Présélections (Récompenses, classiques, cultes, UGC, CDC, etc ...)  */
-    .couleur_preSelections {
+    /*  Récompenses (Palmes d'Or, Césars, Oscars, Ours d'Or, etc ...)  */
+    .couleur_recompenses {
 
         background-color: rgba(73, 106, 191, 1);
     }
 
-    .couleur_preSelections:hover{
+    .couleur_recompenses:hover{
         background-color: rgba(73, 106, 191, 0);
 
         transition: .5s;
     }
 
-    /*  Sélections personnelles, propres à l'utilisateur connecté (vus, à voir, préférés, ...)  */
+    /*  Sélections personnelles, propres à l'utilisateur connecté (vus, à voir, préférés, etc ...)  */
     .couleur_selectionsPerso {
 
         background-color: rgba(49, 71, 127, 1);
@@ -115,7 +115,7 @@
         transition: .5s;
     }
 
-    /*  Genres (aventure, comédie dramatique, comédie, policier, drame, et ...) */
+    /*  Genres (aventure, comédie dramatique, comédie, policier, drame, etc ...) */
     .couleur_genres {
 
         background-color: rgba(24, 35, 64, 1);
@@ -126,13 +126,13 @@
         transition: .5s;
     }
 
-    /*  Autre ...  */
-    .couleur_autre {
+    /*  Autre (classiques, cultes, UGC, CDC, etc ...)  */
+    .couleur_autres {
 
         background-color: rgba(97, 142, 255, 1);
     }
 
-    .couleur_autre:hover{
+    .couleur_autres:hover{
         background-color: rgba(97, 142, 255, 0);
 
         transition: .5s;

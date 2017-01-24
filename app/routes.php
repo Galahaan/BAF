@@ -30,9 +30,11 @@
 		//////////////////////////       Gestion des utilisateurs       /////////////////////////
 		//
 		// => création du UserController
-
-		/* On est 'obligé' de créer cette table pour pouvoir utiliser les fonctions de gestion des utilisateurs présentes dans W.
-En conséquence, (c'est super pratique :-/) notre table 'utilisateurs' ne contient que les infos COMPLEMENTAIRES à celles déjà présentes dans 'wusers'.*/
+		//
+		// On est 'obligé' de créer la table 'wusers' pour pouvoir utiliser les fonctions de
+		// gestion des utilisateurs présentes dans W.
+		// En conséquence, (c'est super pratique :-/) notre table 'utilisateurs' ne contient
+		// que les infos COMPLEMENTAIRES à celles déjà présentes dans 'wusers'.
 
 		['GET|POST', '/inscription', 'User#inscription', 'pageInscription'],
 		['GET|POST', '/connexion', 'User#connexion', 'pageConnexion'],

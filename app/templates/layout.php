@@ -29,6 +29,7 @@
 		<hr>
 		<footer>
 			<?php $this->insert('layoutFiles/footer') ?>
+			<a href="<?= $this->url('docW') ?>">Doc sur W</a>
 		</footer>
 	</div>
 </body>
