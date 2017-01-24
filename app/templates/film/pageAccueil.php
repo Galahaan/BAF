@@ -44,11 +44,35 @@
 			</a>
 		</div>
 
+		<div class="item  preSelections">
+			<img src="<?= $this->assetUrl('img/accueil/oscars.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "oscars"]) ?>" class="taille_a couleur_preSelections">
+				<span class="affichage_titre">
+					Oscars
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item  preSelections">
+			<img src="<?= $this->assetUrl('img/accueil/oursOr.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "oursOr"]) ?>" class="taille_a couleur_preSelections">
+				<span class="affichage_titre">
+					Ours d'Or
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
 		<!-- ///////////////////////////////////////////////////////////////////////////// -->
 		<!-- Groupe des Sélections personnelles (vus, à voir, préférés, ...)               -->
 
 		<div class="item  selectionsPerso">
-			<img src="<?= $this->assetUrl('img/accueil/selectionsPerso.jpg') ?>" alt="" class="taille_img">
+			<img src="<?= $this->assetUrl('img/accueil/vus.jpg') ?>" alt="" class="taille_img">
 			<a href="#" class="taille_a couleur_selectionsPerso">
 				<span class="affichage_titre">
 					Films vus
@@ -87,6 +111,29 @@
 			</a>
 		</div>
 
+		<div class="item  autre">
+			<img src="<?= $this->assetUrl('img/accueil/ugc2016.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "ugc2016"]) ?>" class="taille_a couleur_autre">
+				<span class="affichage_titre">
+					Sélection UGC 2016
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item  autre">
+			<img src="<?= $this->assetUrl('img/accueil/cdc2016.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "cdc2016"]) ?>" class="taille_a couleur_autre">
+				<span class="affichage_titre">
+					Sélection Cahiers du Cinéma 2016
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
 
 	</div>
 </div>

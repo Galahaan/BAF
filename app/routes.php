@@ -31,8 +31,8 @@
 		//
 		// => création du UserController
 
-		// il faudra vérifier la table 'user' dans le fichier app\config.php
-		// et peut-être faire une ou 2 modifs
+		/* On est 'obligé' de créer cette table pour pouvoir utiliser les fonctions de gestion des utilisateurs présentes dans W.
+En conséquence, (c'est super pratique :-/) notre table 'utilisateurs' ne contient que les infos COMPLEMENTAIRES à celles déjà présentes dans 'wusers'.*/
 
 		['GET|POST', '/inscription', 'User#inscription', 'pageInscription'],
 		['GET|POST', '/connexion', 'User#connexion', 'pageConnexion'],

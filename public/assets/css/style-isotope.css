@@ -94,11 +94,11 @@
     /*  Présélections (Récompenses, classiques, cultes, UGC, CDC, etc ...)  */
     .couleur_preSelections {
 
-        background-color: rgba(82, 255, 237, 1);
+        background-color: rgba(73, 106, 191, 1);
     }
 
     .couleur_preSelections:hover{
-        background-color: rgba(82, 255, 237, 0);
+        background-color: rgba(73, 106, 191, 0);
 
         transition: .5s;
     }
@@ -106,11 +106,11 @@
     /*  Sélections personnelles, propres à l'utilisateur connecté (vus, à voir, préférés, ...)  */
     .couleur_selectionsPerso {
 
-        background-color: rgba(255, 82, 82, 1);
+        background-color: rgba(49, 71, 127, 1);
     }
 
     .couleur_selectionsPerso:hover{
-        background-color: rgba(255, 82, 82, 0);
+        background-color: rgba(49, 71, 127, 0);
 
         transition: .5s;
     }
@@ -118,22 +118,22 @@
     /*  Genres (aventure, comédie dramatique, comédie, policier, drame, et ...) */
     .couleur_genres {
 
-        background-color: rgba(255, 120, 82, 1);
+        background-color: rgba(24, 35, 64, 1);
     }
 
     .couleur_genres:hover{
-        background-color: rgba(255, 120, 82, 0);
+        background-color: rgba(24, 35, 64, 0);
         transition: .5s;
     }
 
     /*  Autre ...  */
     .couleur_autre {
 
-        background-color: rgba(82, 114, 255, 1);
+        background-color: rgba(97, 142, 255, 1);
     }
 
     .couleur_autre:hover{
-        background-color: rgba(82, 114, 255, 0);
+        background-color: rgba(97, 142, 255, 0);
 
         transition: .5s;
     }

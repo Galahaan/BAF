@@ -5,6 +5,8 @@ namespace Controller; // toutes les classes de ce fichier seront incluses dans l
 
 use \W\Controller\Controller;
 use \W\Manager\UserManager;
+use \W\Manager\UtilisateurManager;
+
 use \W\Security\AuthentificationManager;
 
 class UserController extends Controller
@@ -13,17 +15,25 @@ class UserController extends Controller
 	// Page d'inscription                     => à adapter, c'est un copier / coller du blogW
 	public function inscription()
 	{
-		if( isset($_POST['inscription'])){
+		if( isset($_POST['valider'])){
 
 			$_POST['tabForm']['password'] = password_hash($_POST['tabForm']['password'], PASSWORD_DEFAULT);
-			$manager = new UserManager();
-			$manager->insert($_POST['tabForm']);
-			$this->redirectToRoute('accueil');
+
+			// faire tous les tests sur le contenu des champs ICI :  ***************************************************************
+
+			$managerUs = new UserManager();
+			$managerUs->insert($_POST['tabForm']);
+
+			// récupérer l'id du user créé et l'insérer dans le tableau envoyé au 2e manager
+
+			$managerUt = new UtilisateurManager();
+			$managerUt->insert($_POST['tabForm']);
+
+			$this->redirectToRoute('pageAccueil');
 		}else{
 			$this->show('user/pageInscription');			
 		}
 	}
-
 
 	// Page de connexion                     => à adapter, c'est un copier / coller du blogW
 	public function connexion()
@@ -43,7 +53,6 @@ class UserController extends Controller
 			$this->show('user/pageConnexion');
 		}
 	}
-
 
 	// Page de déconnexion                     => à adapter, c'est un copier / coller du blogW
 	public function deconnexion()
