@@ -17,7 +17,7 @@
 		    <div class="img_header">
 			    <img src="<?= $this->assetUrl('/img/background_image_1.png') ?>" alt="background_image">
 			    <h1>la Boîte à films</h1>
-			    <p>Bienvenue sur votre BAF personnelle !</p>
+			    <h3><?= ! empty($_SESSION) ? "de " . $_SESSION['user']['prenom'] . " ". $_SESSION['user']['nom'] : "" ?></h3>
 		    </div>
 		</header>
 

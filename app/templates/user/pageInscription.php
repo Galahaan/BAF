@@ -44,7 +44,7 @@
 
 				<input type="hidden" name="tabFormUs[role]" value="user">
 
-				<button type="submit" name="valider" class="btn btn-default regbutton" >Valider</button>
+				<button type="submit" name="inscription" class="btn btn-default regbutton" >Valider</button>
 			</form>
 		</div>
 

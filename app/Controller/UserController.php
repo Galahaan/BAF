@@ -14,7 +14,7 @@ class UserController extends Controller
 	// Page d'inscription
 	public function inscription()
 	{
-		if( isset($_POST['valider'])){
+		if( isset($_POST['inscription'])){
 
 			// faire tous les tests sur le contenu des champs ICI :  ***************************************************************
 			// ceux des 2 managers
@@ -33,17 +33,17 @@ class UserController extends Controller
 			// les infos en base grâce aux 2 managers :
 
 			// 1e manager, lié à la table 'wusers' de W
-			$managerUs = new UserManager();
+			$userManager = new UserManager();
 			// Tout en faisant l'insertion des premières infos de l'utilisateur
 			// (ie celles de la table 'wusers')
 			// on récupère l'id du 'wusers' créé, avant de pouvoir l'insérer dans
 			// le tableau envoyé au 2e manager, celui de NOTRE table 'utilisateurs'
-			$wuser = $managerUs->insert($_POST['tabFormUs']);
+			$wuser = $userManager->insert($_POST['tabFormUs']);
 
 			if( ! empty($wuser['id']) ){
 
 				// 2e manager, lié à notre table 'utilisateurs'
-				$managerUt = new UtilisateurManager();
+				$utilisateurManager = new UtilisateurManager();
 				$contenuUt = [];
 				$contenuUt['civilite'] = $_POST['tabFormUt']['civilite'];
 				$contenuUt['prenom'] = $_POST['tabFormUt']['prenom'];
@@ -51,7 +51,7 @@ class UserController extends Controller
 				$contenuUt['ddn'] = $_POST['tabFormUt']['ddn'];
 				$contenuUt['idWuser'] = $wuser['id'];
 
-				$ok = $managerUt->insert($contenuUt);
+				$ok = $utilisateurManager->insert($contenuUt);
 
 				if( isset($ok) ){
 					$this->show('user/pageInscriptionOK');
@@ -79,8 +79,31 @@ class UserController extends Controller
 
 			if( $authManager->isValidLoginInfo( $_POST['tabForm']['username'], $_POST['tabForm']['password'])){
 				$user = $userManager->getUserByUsernameOrEmail( $_POST['tabForm']['username'] );
+
+				// on ouvre la session pour l'utilisateur :
+				// (en complétant les valeurs vides de $_SESSION, créé lors du session_start()
+				//  appelé dans le constructeur de l'app, avec celles de l'utilisateur, cf AuthentificationManager)
 				$authManager->logUserIn($user);
-				$this->redirectToRoute('accueil');
+
+				// maintenant que $_SESSION contient les informations de la table 'wusers'
+				// je vais récupérer celles contenues dans la table 'utilisateurs'
+				// et les rajouter à la variable $_SESSION pour pouvoir en bénéficier
+				// sur la page d'accueil :
+				$utilisateurManager = new UtilisateurManager();
+
+				$complement = $utilisateurManager->find( $_SESSION['user']['id'] );
+
+				$_SESSION['user']['civilite'] = $complement['civilite'];
+				$_SESSION['user']['prenom'] = $complement['prenom'];
+				$_SESSION['user']['nom'] = $complement['nom'];
+				$_SESSION['user']['ddn'] = $complement['ddn'];
+
+				debug($_SESSION);
+
+				$this->redirectToRoute('pageAccueil');
+			}
+			else{
+				$this->show('user/pageConnexionKO');
 			}
 		}
 		else{
@@ -88,12 +111,12 @@ class UserController extends Controller
 		}
 	}
 
-	// Page de déconnexion                     => à adapter, c'est un copier / coller du blogW
+	// Page de déconnexion
 	public function deconnexion()
 	{
 		$authManager = new AuthentificationManager();
 
 		$authManager->logUserOut();
-		$this->redirectToRoute('accueil');
+		$this->redirectToRoute('pageAccueil');
 	}	
 }

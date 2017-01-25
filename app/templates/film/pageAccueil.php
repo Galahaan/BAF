@@ -24,14 +24,23 @@
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/palmesOr.png') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr"]) ?>" class="taille_a couleur_recompenses">
-				<span class="affichage_titre">
-					Palmes d'Or
-				</span>
-				<span class="affichage_text">
-					<!--  -->
-				</span>
-			</a>
+			
+			<?php if( ! empty($_SESSION) ) : // cas où un utilisateur est connecté ?>
+				<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr"]) ?>" class="taille_a couleur_recompenses">
+					<span class="affichage_titre">
+						Palmes d'Or
+					</span>
+					<span class="affichage_text">
+						<!--  -->
+					</span>
+				</a>
+			<?php else : // cas où personne n'est connecté ?>
+				<a href="<?= $this->url('pageConnexion') ?>" class="taille_a couleur_recompenses">
+					<span class="affichage_titre">
+						Palmes d'Or
+					</span>
+				</a>
+			<?php endif ?>
 		</div>
 
 		<div class="item recompenses">
@@ -71,18 +80,19 @@
 		</div>
 
 
-
-		<div class="item selectionsPerso">
-			<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
-			<a href="#" class="taille_a couleur_selectionsPerso">
-				<span class="affichage_titre">
-					Films vus
-				</span>
-				<span class="affichage_text">
-					<!--  -->
-				</span>
-			</a>
-		</div>
+		<?php if( ! empty($_SESSION) ) : ?>
+			<div class="item selectionsPerso">
+				<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
+				<a href="#" class="taille_a couleur_selectionsPerso">
+					<span class="affichage_titre">
+						Films vus
+					</span>
+					<span class="affichage_text">
+						<!--  -->
+					</span>
+				</a>
+			</div>
+		<?php endif ?>
 
 
 		<div class="item genres">

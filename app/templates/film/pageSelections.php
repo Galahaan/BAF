@@ -18,16 +18,29 @@
 
 	<?php foreach($resultat[1] as $film) : ?>
 		<p>
-			<a href="<?= $this->url('pageFilm', ['id' => $film['id']]) ?>">
-				<img src="<?= $film['urlAffiche'] ?>" >
-				<?= ( $film['anneeSel'] != 0 ) ? $film['anneeSel'] . " - " : "" ?>
-				<?=
-					$film['titreFr']
-					." (".
-					$film['anneeProd']
-					.") "
-				?>
-			</a>
+			<?php if( ! empty($_SESSION) ) : // cas où un utilisateur est connecté ?>
+				<a href="<?= $this->url('pageFilm', ['id' => $film['id']]) ?>">
+					<img src="<?= $film['urlAffiche'] ?>" >
+					<?= ( $film['anneeSel'] != 0 ) ? $film['anneeSel'] . " - " : "" ?>
+					<?=
+						$film['titreFr']
+						." (".
+						$film['anneeProd']
+						.") "
+					?>
+				</a>
+			<?php else : // cas où personne n'est connecté ?>
+				<a href="<?= $this->url('pageConnexion') ?>">
+					<img src="<?= $film['urlAffiche'] ?>" >
+					<?= ( $film['anneeSel'] != 0 ) ? $film['anneeSel'] . " - " : "" ?>
+					<?=
+						$film['titreFr']
+						." (".
+						$film['anneeProd']
+						.") "
+					?>
+				</a>
+			<?php endif ?>
 		</p>
 	<?php endforeach ?>
 

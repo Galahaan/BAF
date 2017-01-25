@@ -23,10 +23,11 @@
 
 			</form>
 
+			<p></p>
 			<p>
-				Si vous n'êtes pas encore inscrit, vous pouvez retrouver le formulaire d'inscription
-				en cliquant ci-dessous :-)
-				<a href="<?php $this->url('pageInscription') ?>">Inscription</a>
+				Si vous n'avez pas encore de compte, vous pouvez retrouver le formulaire d'inscription
+				ici : 
+				<a href="<?= $this->url('pageInscription') ?>">inscription</a>
 			</p>
 
 		</div>

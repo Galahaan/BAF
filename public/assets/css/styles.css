@@ -23,12 +23,28 @@
 		max-width: 100%;
 	}
 
-	.img_header h1{
+	.font_size{
 		position: absolute;
 	    top: 50%;
     	left: 50%;
     	transform: translate(-50%,-50%);
     	font-weight: bold;
+    	font-size: 6rem;
+	}
+
+	.img_header h1{
+		position: absolute;
+	    top: 30%;
+    	left: 50%;
+    	transform: translate(-50%,-50%);
+    	font-weight: bold;
+	}
+
+	.img_header h3{
+	    position: absolute;
+	    top: 50%;
+	    left: 49%;
+	    transform: translate(-50%,-50%);
 	}
 
 /* Modification au niveau de la nav */
@@ -144,7 +160,7 @@
 /* Modification de la taille des affiches pour la listes des films */
 
 	.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img{
-		width: 200px;
+		width: 231px;
 	}
 
 	.caption ul{
@@ -257,9 +273,10 @@
 		list-style-type:none;
 	}
 
-	.descriptif h3{
+	.descriptif h3, .descriptif h4{
 		text-align: center;
 	}
+
 
 	.container .section h4{
 		text-align: center;
@@ -284,19 +301,59 @@
 		height: 25.9rem !important;
 	}
 
-	@media (max-width: 1200px){
+	@media screen and (max-width: 1200px){
 		.col-md-5 iframe{
 			height: 21.2rem !important;
 			margin-top: 3.5rem;
 		}
 	}
 
-	@media (max-width: 992px){
+	@media screen and (max-width: 992px){
 		.col-md-5 iframe{
 			display: none;
 		}
+
+
+		.font_size{
+			position: absolute;
+		    top: 34%;
+	    	left: 50%;
+	    	transform: translate(-50%,-50%);
+	    	font-weight: bold;
+			font-size: 4rem;		
+		}
+		
+		.img_header p{
+		    position: absolute;
+		    top: 77%;
+		    left: 51%;
+		    transform: translate(-50%,-50%);
+		}
 	}
 
+	@media screen and (max-width: 768px) {
+			
+		.font_size{
+			position: absolute;
+		    top: 15%;
+	    	left: 50%;
+	    	transform: translate(-50%,-50%);
+	    	font-weight: bold;
+			font-size: 2rem;		
+		}
+
+		.img_header p{
+			font-size: 10px;
+		}
+	}
+	
+	@media screen and (max-width: 425px) {
+		
+		.font_size, .img_header img , .img_header p{
+			display: none;		
+		}
+
+	}
 /*modification de la couleur du bouton dans le descriptif*/
 
 	.btn-primary{
@@ -308,4 +365,13 @@
 
 
 
+
+/* 	Tablets 768px and Up 
+	.col-md-$
+	Medium Devices
+	Desktops 992px and Up 
+	.col-lg-$
+	Large Devices
+	Large Desktops 1200px and Up   
+*/
 
