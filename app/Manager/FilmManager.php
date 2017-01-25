@@ -61,7 +61,7 @@ class FilmManager extends \W\Manager\Manager {
 	//					idL 			= id dans la table de liaison vers 'table'
 	//					table 			= 'table' dont on veut les données
 	//					libelle			= champ de 'table' qui est souvent intitulé 'libelle'
-	//					colonne 		= utilisé comme index dans le tableau associatif résultat
+	//					alias 			= utilisé comme index dans le tableau associatif résultat
 	//
 	// en sortie : 		tableau associatif de données partielles sur un film
 	//
@@ -69,7 +69,7 @@ class FilmManager extends \W\Manager\Manager {
 	//		associée à un film par le biais de la table de liaison.
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
-	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $colonne){
+	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $alias){
 
 		// Cas particulier de la table 'film_selection' : on récupère l'année de la 'récompense'
 		$complement1 = "";
@@ -87,7 +87,7 @@ class FilmManager extends \W\Manager\Manager {
 		}
 		$select = "
 			select
-					$table.$libelle as $colonne
+					$table.$libelle as $alias
 					$complement1 $complement2
 			from
 					films, $tableLiaison, $table
@@ -107,20 +107,22 @@ class FilmManager extends \W\Manager\Manager {
 	//					tableLiaison 	= table de liaison du type 'film_table1_table2'
 	//					idL1 / 2		= id dans la table de liaison vers 'table1' / 'table2'
 	//					table1 / 2		= 'table1' / 'table2' dont on veut les données
-	//					libelle1 / 2	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
-	//					colonne1 / 2	= utilisé comme index dans le tableau associatif résultat
-	//
+	//					libelle1x / 2	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
+	//										x = C ou L = libelle court / libelle
+	//					alias1x / 2		= utilisé comme index dans le tableau associatif résultat
+	//										x = C ou L = alias pour libelle court / alias pour libelle
 	// en sortie : 		tableau associatif de données partielles sur un film
 	//
 	// 		Cette méthode sert à récupérer les données de DEUX tables
 	//		associées à un film par le biais de la table de liaison.
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
-	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1, $colonne1, $idL2, $table2, $libelle2, $colonne2){
+	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1C, $libelle1L, $alias1C, $alias1L, $idL2, $table2, $libelle2, $alias2){
 		$select = "
 			select
-					$table1.$libelle1 as $colonne1,
-					$table2.$libelle2 as $colonne2
+					$table1.$libelle1C as $alias1C,
+					$table1.$libelle1L as $alias1L,
+					$table2.$libelle2 as $alias2
 			from
 					films, $tableLiaison, $table1, $table2
 
@@ -197,7 +199,7 @@ class FilmManager extends \W\Manager\Manager {
 		//
 		$film[] = $this->getDataFilmLiaison_2_Tables(
 			$id, "film_personne_profession",
-			"idProfession", "professions", "libelle", "prof",
+			"idProfession", "professions", "libelleCourt", "libelle", "prof", "profession",
 			"idPersonne", "personnes", "prenom_nom", "nom");
 
 		// La méthode retourne le film complet :

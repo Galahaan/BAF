@@ -10,12 +10,14 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container-fluid">
 
 		<header>
 			<?php $this->insert('layoutFiles/nav') ?>
 		    <div class="img_header">
 			    <img src="<?= $this->assetUrl('/img/background_image_1.png') ?>" alt="background_image">
+			    <h1>la Boîte à films</h1>
+			    <p>Bienvenue sur votre BAF personnelle !</p>
 		    </div>
 		</header>
 
@@ -25,6 +27,7 @@
 			<?= $this->section('main_content') ?>
 
 		</section>
+
 
 		<hr>
 		<footer>

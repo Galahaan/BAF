@@ -106,6 +106,24 @@
 		<?php endif ?>
 	<!-- fin du § sur le distributeur -->
 
+	<!-- § sur les "acteurs"  -->
+		<?php if( ! isset( $film[7][0]['prof'] ) ) : ?>
+			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
+		<?php elseif( isset( $film[7][1] ) ) : ?>
+			<p>"Acteurs" (au sens "personne ayant participé au film") :
+				<?php foreach($film[7] as $acteur) : ?>
+					<p>
+						<?= $acteur['profession'] . " : " . $acteur['nom'] ?>
+					</p>
+				<?php endforeach ?>
+			</p>
+		<?php else : ?>
+			<p>Acteur :
+				<?= $film[7][0]['prof'] . " " . $film[7][0]['nom'] ?>
+			</p>
+		<?php endif ?>
+	<!-- fin du § sur les "acteurs" -->
+
 	<!-- § sur les différentes valeurs possibles et multiples des mots-clés -->
 		<?php if( ! isset( $film[4][0]['motcle'] ) || $film[4][0]['motcle'] == "Inconnu" ) : ?>
 			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->

@@ -69,7 +69,7 @@ class UserController extends Controller
 		}
 	}
 
-	// Page de connexion                     => à adapter, c'est un copier / coller du blogW
+	// Page de connexion
 	public function connexion()
 	{
 		if( isset($_POST['connexion'])){

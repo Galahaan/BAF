@@ -17,9 +17,18 @@
 	.img_header{
 		width: 100%;
 		margin-top: 5rem;
+		position: relative;
 	}
 	.img_header img{
 		max-width: 100%;
+	}
+
+	.img_header h1{
+		position: absolute;
+	    top: 50%;
+    	left: 50%;
+    	transform: translate(-50%,-50%);
+    	font-weight: bold;
 	}
 
 /* Modification au niveau de la nav */
@@ -85,10 +94,6 @@
 		text-align: center;
 	}
 
-	.container{
-		width: 100%;
-	}
-
 /* Modification au niveau du footer font awesome */
 
 	.fa{
@@ -104,33 +109,203 @@
 		margin-top: 1rem;
 	}
 
-/*  */
 
-.col-md-8 p{
-	text-align: justify;
-}
 
-.fin{
-	background-color: #272424;
-	color: #fff;
-}
+	.col-md-8 p{
+		text-align: justify;
+	}
 
-.fin p{
-	margin-top: 0;
-	margin-bottom: 0;
-}
+	.fin{
+		background-color: #272424;
+		color: #fff;
+	}
 
-footer .row:nth-child(1){
-	margin-bottom: 2rem;
-	margin-left: 0;
-	margin-right: 0;
-}
+	.fin p{
+		margin-top: 0;
+		margin-bottom: 0;
+	}
 
-.container_footer{
-	padding-right: 0;
-	padding-left: 0;
-}
+	footer .row:nth-child(1){
+		margin-bottom: 2rem;
+		margin-left: 0;
+		margin-right: 0;
+	}
 
-.last_row{
-	padding-left: 16px;
-}
+	.container_footer{
+		padding-right: 0;
+		padding-left: 0;
+	}
+
+	.last_row{
+		padding-left: 16px;
+	}
+
+
+/* Modification de la taille des affiches pour la listes des films */
+
+	.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+		width: 200px;
+	}
+
+	.caption ul{
+		list-style-type:none;
+	}
+
+
+	.caption p:nth-child(2), .caption p:nth-child(3){
+		display: inline-block;
+	}
+	
+	.taille{
+		width: 190px;
+		float: left;
+		margin: auto;
+	}
+
+
+/* Modification page formulaire */
+
+	.formulaire, .marge_top{
+		margin-top: 5rem;
+	}
+
+
+
+	.register-form{
+    font-size: 16px;
+   	left: 0;
+    top: 11rem;
+    position: absolute;
+
+	}
+
+	.regbutton{    
+	    height: 50px;
+	    width: 200px;
+	    background-color:tomato;
+	    border-radius: 0px;
+	    font-size: 18px;
+	    color:white;
+	    border: none !important;
+	    margin-bottom: 5px;
+	    width: 100%;
+	}
+	.regbutton:hover{    
+	    color: white;
+	    background-color:#aa422f;
+	}
+	.regbutton:active{    
+	    color: white;
+	    background-color:#aa422f;
+	}
+	.logbutton{    
+	    height: 50px;
+	    width: 200px;
+	    background-color:yellowgreen;
+	    border-radius: 0px;
+	    font-size: 18px;
+	    color:white;
+	    border: none !important;
+	    margin-bottom: 5px;
+	}
+	.logbutton:hover{    
+	    color: white;
+	    background-color:darkolivegreen;
+	}
+	.logbutton:active{    
+	    color: white;
+	    background-color:darkolivegreen;
+	}
+
+
+
+	.register-form label{
+	    color: #000;
+	    
+	}
+	.register-form input{
+	    margin-bottom: 5px;
+	    width: 100%;
+	    height: 40px;
+	    border-radius: 0px;
+	}
+
+	.height_formulaire{
+		height: 78.3rem;
+	}
+	.submit{
+		width:100%;
+	}
+
+	form-control{
+		border-radius: 2px; 
+	}
+
+
+
+	.listes li{
+		list-style-type:none;	
+	}
+
+/* Modification au niveau de la descritpion du film ( affiche du film ) */
+	.block{
+		margin: auto;
+		display: inline-block;
+	}
+
+	.descriptif ul{
+		list-style-type:none;
+	}
+
+	.descriptif h3{
+		text-align: center;
+	}
+
+	.container .section h4{
+		text-align: center;
+		background-color: #b61d12;
+		padding: 10px 0px;
+	}
+
+	.caption h5{
+		text-align: center;
+	}
+
+	.row .image{
+		background-color: rgba(128, 128, 128, 0.1);
+	}
+	.margin{
+		margin-top: 10px;
+	}
+	.col-md-5 iframe{
+		margin-left: -1.1rem;
+		margin-top: 2rem;
+		width: 100% !important;
+		height: 25.9rem !important;
+	}
+
+	@media (max-width: 1200px){
+		.col-md-5 iframe{
+			height: 21.2rem !important;
+			margin-top: 3.5rem;
+		}
+	}
+
+	@media (max-width: 992px){
+		.col-md-5 iframe{
+			display: none;
+		}
+	}
+
+/*modification de la couleur du bouton dans le descriptif*/
+
+	.btn-primary{
+		background-color: #b73333;
+	    border-color: #a42e2e;
+	}
+
+
+
+
+
+

@@ -8,7 +8,7 @@
 	<div class="container formulaire">
 		<h2 class="formulaire_titre">Pour créer votre compte, veuillez remplir ce formulaire :</h2>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<form method="POST" action="" id="formulaire">
+			<form method="POST" action="" >
 				<div class="form-group">
 					<label for="civilite">Civilité :</label>
 					<select name="tabFormUt[civilite]" >
