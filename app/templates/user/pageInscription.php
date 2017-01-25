@@ -11,38 +11,38 @@
 			<form method="POST" action="" id="formulaire">
 				<div class="form-group">
 					<label for="civilite">Civilité :</label>
-					<select name="tabFormU[civilite]" >
+					<select name="tabFormUt[civilite]" >
 						<option value="M">M</option>
 						<option value="Mme">Mme</option>
 					</select><br>
 				</div>
 				<div class="form-group">
 					<label for="prenom">Prénom :</label>
-					<input type="text" class="form-control" name="tabFormU[prenom]" required>
+					<input type="text" class="form-control" name="tabFormUt[prenom]" required>
 				</div>
 				<div class="form-group">
 					<label for="nom">Nom :</label>
-					<input type="text" class="form-control" name="tabFormU[nom]" required>
+					<input type="text" class="form-control" name="tabFormUt[nom]" required>
 				</div>
 				<div class="form-group">
 					<label for="ddn">Date de naissance :</label>
-					<input type="date" class="form-control" name="tabFormU[ddn]" required>
+					<input type="date" class="form-control" name="tabFormUt[ddn]" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email :</label>
-					<input type="text" class="form-control" name="tabFormU[email]" required>
+					<input type="text" class="form-control" name="tabFormUs[email]" required>
 				</div>
 				<div class="form-group">
 					<label for="username">Identifiant de connexion :</label>
-					<input type="text" class="form-control" name="tabFormU[username]" required>
+					<input type="text" class="form-control" name="tabFormUs[username]" required>
 				</div>
 
 				<div class="form-group">
 					<label for="password">Mot de passe :</label>
-					<input type="password" class="form-control" name="tabFormU[password]" required>
+					<input type="password" class="form-control" name="tabFormUs[password]" required>
 				</div>
 
-				<input type="hidden" name="tabFormU[role]" value="standard">
+				<input type="hidden" name="tabFormUs[role]" value="user">
 
 				<button type="submit" name="valider" class="btn btn-default regbutton" >Valider</button>
 			</form>

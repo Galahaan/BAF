@@ -11,11 +11,9 @@ namespace Manager;
 class UtilisateurManager extends \W\Manager\Manager {
 
 	// On crée ici nos propres méthodes spécialisées (en plus de celles héritées de la classe mère Manager)
-	// Le "problème" vient du fait que W propose une gestion des utilisateurs via un UserController qui utilise
+	// Le "problème" vient du fait que W propose une gestion des utilisateurs via un UserManager qui utilise
 	// la table 'wusers' et ne tolère aucune modification de cette table ...
+	// On a donc dû se créer une autre table 'utilisateurs' contenant les infos complémentaires.
 
 
 }
-
-
- ?>

@@ -7,7 +7,7 @@
 	<div class="iso-nav">
 		<!-- Liste des icônes de groupes pour tri rapide -->
 		<ul>
-			<li class="active" data-filter="*">Tous !</li>
+			<li class="active" data-filter="*">Tous les thèmes !</li>
 			<li data-filter=".recompenses"><img src="<?= $this->assetUrl('img/accueil/icones/recompenses.png') ?>" alt=""></li>
 			<li data-filter=".genres"><img src="<?= $this->assetUrl('img/accueil/icones/clap.png') ?>" alt=""></li>
 			<li data-filter=".selectionsPerso"><img src="<?= $this->assetUrl('img/accueil/icones/selectionsPerso.png') ?>" alt=""></li>
