@@ -26,7 +26,7 @@
 				</div>
 				<div class="form-group">
 					<label for="ddn">Date de naissance :</label>
-					<input type="date" class="form-control" name="tabFormUt[ddn]" required>
+					<input type="date" class="form-control" name="tabFormUt[ddn]" required placeholder="aaaa-mm-jj">
 				</div>
 				<div class="form-group">
 					<label for="email">Email :</label>
