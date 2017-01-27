@@ -107,22 +107,30 @@ class FilmManager extends \W\Manager\Manager {
 	//					tableLiaison 	= table de liaison du type 'film_table1_table2'
 	//					idL1 / 2		= id dans la table de liaison vers 'table1' / 'table2'
 	//					table1 / 2		= 'table1' / 'table2' dont on veut les données
-	//					libelle1x / 2	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
+	//					libelle1x / 2y	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
 	//										x = C ou L = libelle court / libelle
-	//					alias1x / 2		= utilisé comme index dans le tableau associatif résultat
+	//										y = 1 ou 2 = libelle21 / libelle22
+	//					alias1x / 2y	= utilisé comme index dans le tableau associatif résultat
 	//										x = C ou L = alias pour libelle court / alias pour libelle
+	//										y = 1 ou 2 = alias pour libelle21 / libelle22
 	// en sortie : 		tableau associatif de données partielles sur un film
 	//
 	// 		Cette méthode sert à récupérer les données de DEUX tables
 	//		associées à un film par le biais de la table de liaison.
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
-	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1C, $libelle1L, $alias1C, $alias1L, $idL2, $table2, $libelle2, $alias2){
+	// ex. d'appel de cette fonction :
+	//
+	// $id, "film_personne_profession", "idProfession", "professions", "libelleCourt", "libelle",
+	//      "prof", "profession", "idPersonne", "personnes", "prenom_nom", "nom", "urlPhoto", "urlPhoto"
+	//
+	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1C, $libelle1L, $alias1C, $alias1L, $idL2, $table2, $libelle21, $alias21, $libelle22, $alias22){
 		$select = "
 			select
 					$table1.$libelle1C as $alias1C,
 					$table1.$libelle1L as $alias1L,
-					$table2.$libelle2 as $alias2
+					$table2.$libelle21 as $alias21,
+					$table2.$libelle22 as $alias22
 			from
 					films, $tableLiaison, $table1, $table2
 
@@ -200,7 +208,7 @@ class FilmManager extends \W\Manager\Manager {
 		$film[] = $this->getDataFilmLiaison_2_Tables(
 			$id, "film_personne_profession",
 			"idProfession", "professions", "libelleCourt", "libelle", "prof", "profession",
-			"idPersonne", "personnes", "prenom_nom", "nom");
+			"idPersonne", "personnes", "prenom_nom", "nom", "urlPhoto", "urlPhoto");
 
 		// La méthode retourne le film complet :
 		return $film;
