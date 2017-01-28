@@ -131,7 +131,7 @@ class FilmManager extends \W\Manager\Manager {
 			select
 					$table1.$champ11 as $alias11,
 					$table1.$champ12 as $alias12,
-					$table2.$libelle21 as $alias21,
+					$table2.$champ21 as $alias21,
 					$table2.$champ22 as $alias22
 			from
 					films, $tableLiaison, $table1, $table2
