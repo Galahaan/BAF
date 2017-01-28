@@ -60,8 +60,9 @@ class FilmManager extends \W\Manager\Manager {
 	//					tableLiaison 	= table de liaison du type 'film_table'
 	//					idL 			= id dans la table de liaison vers 'table'
 	//					table 			= 'table' dont on veut les données
-	//					libelle			= champ de 'table' qui est souvent intitulé 'libelle'
-	//					alias 			= utilisé comme index dans le tableau associatif résultat
+	//					champ			= nom du champ de 'table' dont on veut la valeur
+	//					alias 			= alias du champs, utilisé comme index dans le
+	//										tableau associatif résultat de la requête
 	//
 	// en sortie : 		tableau associatif de données partielles sur un film
 	//
@@ -69,7 +70,7 @@ class FilmManager extends \W\Manager\Manager {
 	//		associée à un film par le biais de la table de liaison.
 	//		Elle est appelée par la methode getFilm(id) définie ci-dessous.
 	//
-	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $libelle, $alias){
+	public function getDataFilmLiaison_1_Table($idFilm, $tableLiaison, $idL, $table, $champ, $alias){
 
 		// Cas particulier de la table 'film_selection' : on récupère l'année de la 'récompense'
 		$complement1 = "";
@@ -87,7 +88,7 @@ class FilmManager extends \W\Manager\Manager {
 		}
 		$select = "
 			select
-					$table.$libelle as $alias
+					$table.$champ as $alias
 					$complement1 $complement2
 			from
 					films, $tableLiaison, $table
@@ -107,12 +108,12 @@ class FilmManager extends \W\Manager\Manager {
 	//					tableLiaison 	= table de liaison du type 'film_table1_table2'
 	//					idL1 / 2		= id dans la table de liaison vers 'table1' / 'table2'
 	//					table1 / 2		= 'table1' / 'table2' dont on veut les données
-	//					libelle1x / 2y	= champ de 'table1' / 'table2' qui est souvent intitulé 'libelle'
-	//										x = C ou L = libelle court / libelle
-	//										y = 1 ou 2 = libelle21 / libelle22
-	//					alias1x / 2y	= utilisé comme index dans le tableau associatif résultat
-	//										x = C ou L = alias pour libelle court / alias pour libelle
-	//										y = 1 ou 2 = alias pour libelle21 / libelle22
+	//					champXY			= nom du champ dont on veut la valeur
+	//					aliasXY			= alias du champs, utilisé comme index dans le
+	//										tableau associatif résultat de la requête
+	//										X = 1 -> 'table 1'	/	X = 2 -> 'table 2'
+	//										Y = 1 -> 1e champ	/	Y = 2 -> 2e champ
+	//
 	// en sortie : 		tableau associatif de données partielles sur un film
 	//
 	// 		Cette méthode sert à récupérer les données de DEUX tables
@@ -121,16 +122,17 @@ class FilmManager extends \W\Manager\Manager {
 	//
 	// ex. d'appel de cette fonction :
 	//
-	// $id, "film_personne_profession", "idProfession", "professions", "libelleCourt", "libelle",
-	//      "prof", "profession", "idPersonne", "personnes", "prenom_nom", "nom", "urlPhoto", "urlPhoto"
+	// $id, "film_personne_profession",
+	// "idProfession", "professions", "libelleCourt", "prof", "libelle",  "profession",
+	// "idPersonne",   "personnes",   "prenom_nom",   "nom",  "urlPhoto", "urlPhoto"
 	//
-	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $libelle1C, $libelle1L, $alias1C, $alias1L, $idL2, $table2, $libelle21, $alias21, $libelle22, $alias22){
+	public function getDataFilmLiaison_2_Tables($idFilm, $tableLiaison, $idL1, $table1, $champ11, $alias11, $champ12, $alias12, $idL2, $table2, $champ21, $alias21, $champ22, $alias22){
 		$select = "
 			select
-					$table1.$libelle1C as $alias1C,
-					$table1.$libelle1L as $alias1L,
+					$table1.$champ11 as $alias11,
+					$table1.$champ12 as $alias12,
 					$table2.$libelle21 as $alias21,
-					$table2.$libelle22 as $alias22
+					$table2.$champ22 as $alias22
 			from
 					films, $tableLiaison, $table1, $table2
 
@@ -207,7 +209,7 @@ class FilmManager extends \W\Manager\Manager {
 		//
 		$film[] = $this->getDataFilmLiaison_2_Tables(
 			$id, "film_personne_profession",
-			"idProfession", "professions", "libelleCourt", "libelle", "prof", "profession",
+			"idProfession", "professions", "libelleCourt", "prof", "libelle", "profession",
 			"idPersonne", "personnes", "prenom_nom", "nom", "urlPhoto", "urlPhoto");
 
 		// La méthode retourne le film complet :
@@ -216,4 +218,4 @@ class FilmManager extends \W\Manager\Manager {
 }
 
 
- ?>
+?>
