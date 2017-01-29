@@ -3,19 +3,21 @@
 
 <?php $this->start('main_content') ?>
 
+<?php define("NB_MAX_ACTEURS_AFFICHES", 6); ?>
+
 	<div class="container margin">
 
 		<div class="row">
 			<div class="col-md-3 image">
-				<a href="#">
-					<img class="img-responsive img-center" src="<?= $film[0]['urlAffiche'] ?>" alt="affiche du film" style="margin:auto;">
+				<a href="<?= $this->assetUrl('img/affichesFilms/'.$film[0]['urlAffiche']) ?>">
+					<img class="img-responsive img-center" src="<?= $this->assetUrl('img/affichesFilms/'.$film[0]['urlAffiche']) ?>" alt="affiche du film" style="margin:auto;">
 				</a>
 			</div>
 			<div class="col-md-4 descriptif">
 	<!-- Titre Fr -->
 				<h3><?= $film[0]['titreFr'] ?>
 				<?php if( $film[0]['anneeProd'] != 0 ) : ?>
-					 - <?= $film[0]['anneeProd'] ?>
+					(<?= $film[0]['anneeProd'] ?>)
 				<?php endif ?>
 				</h3>
 	<!-- fin titre Fr -->
@@ -116,6 +118,17 @@
 					<?php endif ?>
 	<!-- fin sélection -->
 
+	<!-- IMDB notes et nb votes -->
+					<?php if( $film[0]['noteIMDB'] != 0 ) : ?>
+						<li>IMDB : <?= $film[0]['noteIMDB'] ?> /10
+						<?php if( $film[0]['nbVotesIMDB'] == 0 ) : ?>
+							</li>
+						<?php else : ?>
+							 sur <?= $film[0]['nbVotesIMDB'] ?> votes
+							</li>
+						<?php endif ?>
+					<?php endif ?>
+	<!-- fin IMDB -->
 				</ul>
 			</div>
 			<div class="col-md-5">
@@ -150,73 +163,44 @@
 		<p><?= $film[0]['synopsis'] ?></p>
 	</div>
 
-	<!-- "Acteurs" (double sens) -->
+	<!-- "Acteurs" (personne ayant participé au film) -->
 		<?php
 			if( ! isset( $film[7][0]['prof'] ) ){
 				// on ne fait rien, si ce n'est éviter l'affichage d'une erreur !
 			}
 			elseif( isset( $film[7][1] ) ){
-				echo "<h4>Principaux acteurs</h4>";
-				foreach($film[7] as $index => $acteur){
-					// pour voir tous les "acteurs" (au sens "personne ayant participé au film") :
-					// $acteur['profession'] . " : " . $acteur['nom']
 
-					// pour voir les XX principaux acteurs (au sens "acteur" proprement dit) :
-					if( ($acteur['prof'] == 'acteur') && $index <= 4 ){
-						debug($acteur);
-						echo "<p>Acteur : ".$acteur['nom']."</p>";
-					}
-				}
+				echo "<div class='container'>";
+					echo "<h4>Acteurs principaux :</h4>";
+					echo "<div class='row'>";
+
+						foreach($film[7] as $index => $acteur){
+						// pour voir tous les "acteurs" (au sens "personne ayant participé au film") :
+						// $acteur['profession'] . " : " . $acteur['nom']
+
+						// pour voir les XX principaux acteurs (au sens "acteur" proprement dit) :
+							if( ($acteur['prof'] == 'acteur') && $index <= NB_MAX_ACTEURS_AFFICHES ){
+							echo "<div class='col-md-3 col-sm-6 hero-feature taille'>";
+								echo "<div class='thumbnail'>";
+
+								echo "<img src=".$acteur['urlPhoto'].">";
+									echo "<div class='caption'>";
+									echo "<h5>".$acteur['nom']."</h5>";
+									echo "</div>";
+								echo "</div>";
+							echo "</div>";
+							}
+						}
+					echo "</div>";
+				echo "</div>";
 			}
 			else{
-				echo $film[7][0]['prof'] . " " . $film[7][0]['nom'];
+				echo "<h4>\"Acteur\" (un seul !) :</h4>";
+				echo $film[7][0]['profession'] . " " . $film[7][0]['nom'];
 			}
 		?>
 	<!-- fin Acteurs -->
 
-	<div class="container">
-			<h4>Principaux ACTEURS</h4>
-		<div class="row">
-	        <div class="col-md-3 col-sm-6 hero-feature taille">
-	            <div class="thumbnail">
-	                <img src="img/acteurs/acteur_1.jpg" alt="">
-	                <div class="caption">
-	                    <h5>Michael Fassbender</h5> 
-	                </div>
-	            </div>
-	        </div>
-	        <div class="col-md-3 col-sm-6 hero-feature taille">
-	            <div class="thumbnail">
-	                <img src="img/acteurs/acteur_2.jpg" alt="">
-	                <div class="caption">
-	                    <h5>Marion Cotillard</h5> 
-	                </div>
-	            </div>
-	        </div>
-	        <div class="col-md-3 col-sm-6 hero-feature taille">
-	            <div class="thumbnail">
-	                <img src="img/acteurs/acteur_3.jpg" alt="">
-	                <div class="caption">
-	                    <h5>Jeremy Irons</h5> 
-	                </div>
-	            </div>
-	        </div>
-	        <div class="col-md-3 col-sm-6 hero-feature taille">
-	            <div class="thumbnail">
-	                <img src="img/acteurs/acteur_4.jpg" alt="">
-	                <div class="caption">
-	                    <h5>Brendan Gleeson</h5> 
-	                </div>
-	            </div>
-	        </div>
-		</div>
-	</div>
-
-	<div class="container">
-	<?php foreach($film[7] as $profession){
-			if($profession['prof'] == 'produc'){
-				echo "<h4>Producteur : ".$profession['nom']."</h4>"; } } ?>
-	</div>
 	<div class="container">
 	<?php foreach($film[7] as $profession){
 			if($profession['prof'] == 'scenar'){
@@ -233,16 +217,15 @@
 				echo "<h4>Directeur de la photographie : ".$profession['nom']."</h4>"; } } ?>
 	</div>
 	<div class="container">
+	<?php foreach($film[7] as $profession){
+			if($profession['prof'] == 'produc'){
+				echo "<h4>Producteur : ".$profession['nom']."</h4>"; } } ?>
+	</div>
+	<div class="container">
 		<?= $film[0]['budget'] == 0 ? "" : "<h4>Budget : " . $film[0]['budget'] . "</h4>" ?>
 	</div>
 	<div class="container">
 		<?= $film[0]['bof'] == 0 ? "" : "<h4>Box office : " . $film[0]['bof'] . "</h4>" ?>
-	</div>
-	<div class="container">
-		<?= $film[0]['noteIMDB'] == 0 ? "" : "<h4>Note IMDB : " . $film[0]['noteIMDB'] . "</h4>" ?>
-	</div>
-	<div class="container">
-		<?= $film[0]['nbVotesIMDB'] == 0 ? "" : "<h4>Nb de votes IMDB : " . $film[0]['nbVotesIMDB'] . "</h4>" ?>
 	</div>
 	<div class="container">
 	<!-- § sur les différentes valeurs possibles et multiples des mots-clés -->
