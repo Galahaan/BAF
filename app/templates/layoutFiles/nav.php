@@ -23,7 +23,7 @@
                         <?php if( empty($_SESSION) ) : ?>
                                 <a href="<?= $this->url('pageConnexion') ?>">Connexion</a>
                         <?php else : ?>
-                                <a href="<?= $this->url('pageDeconnexion') ?>">Deconnexion</a>
+                                <a href="<?= $this->url('pageDeconnexion') ?>">Déconnexion</a>
                         <?php endif ?>
                     </li>
                 </ul>

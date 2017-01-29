@@ -40,20 +40,6 @@
 						$avOK = false; // à voir
 						$prOK = false; // préféré
 
-						// if( $nbSelPerso > 0 ){
-						// 	foreach( $film['perso'] as $selPerso ){
-						// 		if( $selPerso['libelle'] == 'vu' ){
-						// 			$vuOK = true;
-						// 		}
-						// 		elseif( $selPerso['libelle'] == 'av' ){
-						// 			$avOK = true;
-						// 		}
-						// 		elseif( $selPerso['libelle'] == 'pr' ){
-						// 			$prOK = true;
-						// 		}
-						// 	}
-						// }
-
 						if( $nbSelPerso > 0 ){
 							foreach( $film['perso'] as $selPerso ){
 								switch( $selPerso['libelle'] ){
