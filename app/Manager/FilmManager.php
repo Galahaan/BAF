@@ -20,18 +20,22 @@ class FilmManager extends \W\Manager\Manager {
 	// en sortie : 		liste des films appartenant à ce thème
 	//
 	// 		Cette méthode retourne une sélection de films appartenant à un thème.
-	//		associée à un film par le biais de la table de liaison.
 	//
 	public function getSelection($theme){
-		$liste = [];
+		$listeFilms = [];
+
 		$select = "select * from selections where theme = $theme";
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
-		$liste[] = $requete->fetch();
+		$listeFilms[] = $requete->fetch(); // (ex. palmesOr, Palme d'Or, Palmes d'Or, ...)
 
-		// si on est dans le cas d'un thème 'récompense', donc décernée une certaine année X,
+		// si on est dans le cas d'un thème où une année X est associée au film,
+		// (ex. Palmes d'Or, Césars, sélection annuelle UGC, sélection annuelle Cahiers du Cinéma, etc ...)
 		// on trie les résultats de la sélection selon cette année X,
-		// sinon on trie selon l'année de production du film :
+		// sinon on trie selon l'année de production du film (qui n'est pas toujours la même !)
+
+		// pour la 1ère requête, si 'annee' apparaît plusieurs fois dans la table, c'est que le thème
+		// est de type 'année associée au film' => on trie selon l'année
 		$select = "select count(fs.annee) as nb from film_selection fs, selections s where s.theme = $theme and fs.idSelection = s.id";
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
@@ -42,7 +46,29 @@ class FilmManager extends \W\Manager\Manager {
 		else{
 			$orderBy = " order by	f.anneeProd desc";	// cas où l'année est vide
 		}
-		$select = "select	f.id, f.titreFr, f.anneeProd, f.urlAffiche, fs.annee as anneeSel
+
+		// on récupère les infos principales du film à afficher,
+		// mais également les infos de l'utilisateur connecté, liées à ce film.
+		// Pour ce faire, il nous faut une jointure gauche sur les 2 tables de liaison :
+		//
+		// C'était une très belle requête, mais ce n'est pas gérable une fois dans la page des résultats ... :-(
+		//
+		// $select = "select distinct fs.idFilm as id, f.titreFr, f.anneeProd, fs.annee as anneeSel, f.urlAffiche, sp.libelle as perso
+		// 			from 			selections s, films f, utilisateur_selectionperso usp,
+		// 							film_selection fs
+		// 			left join 		selectionsperso sp
+		// 			on 				fs.idFilm = sp.idFilm
+		// 			where 			fs.idFilm = f.id
+		// 						and fs.idSelection = s.id
+		// 						and s.theme = $theme
+		// 						and usp.idUtilisateur = :idUB". $orderBy;
+		// $requete = $this->dbh->prepare($select);
+		// $requete->bindValue(":idUB", $_SESSION['user']['id']);
+		// $requete->execute();
+		// $listeFilmUtil[] = $requete->fetchAll();
+
+		// on récupère les infos principales du film à afficher :
+		$select = "select	fs.idFilm as id, f.titreFr, f.anneeProd, fs.annee as anneeSel, f.urlAffiche, f.id as perso
 						from		film_selection fs, selections s, films f
 						where		s.theme		= $theme
 							and		fs.idSelection	= s.id
@@ -50,8 +76,24 @@ class FilmManager extends \W\Manager\Manager {
 						".$orderBy;
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
-		$liste[] = $requete->fetchAll();
-		return $liste;
+		$listeFilms[] = $requete->fetchAll();
+
+		// maintenant, on repasse la liste en revue, et on associe les infos utilisateur (vu, à voir, préféré,  ...)
+		foreach($listeFilms[1] as $index => $film){
+			$select = "select 	sp.libelle
+						from 	utilisateur_selectionperso usp, selectionsperso sp
+						where 	usp.idSelectionPerso = sp.id
+							and usp.idUtilisateur = :idUB
+							and sp.idFilm = :idFB";
+
+			$requete = $this->dbh->prepare($select);
+			$requete->bindValue(":idUB", $_SESSION['user']['id']);
+			$requete->bindValue(":idFB", $film['id']);
+			$requete->execute();
+			$listeInfosUtilisateur = $requete->fetchAll();
+			$listeFilms[1][$index]['perso'] = $listeInfosUtilisateur;
+		}
+		return $listeFilms;
 	}
 
 	//////////////////////            getDataFilmLiaison_1_Table            //////////////////////
@@ -61,7 +103,7 @@ class FilmManager extends \W\Manager\Manager {
 	//					idL 			= id dans la table de liaison vers 'table'
 	//					table 			= 'table' dont on veut les données
 	//					champ			= nom du champ de 'table' dont on veut la valeur
-	//					alias 			= alias du champs, utilisé comme index dans le
+	//					alias 			= alias du champ, utilisé comme index dans le
 	//										tableau associatif résultat de la requête
 	//
 	// en sortie : 		tableau associatif de données partielles sur un film
@@ -97,7 +139,7 @@ class FilmManager extends \W\Manager\Manager {
 				and	$table.id	= $tableLiaison.$idL
 				and	films.id	= $idFilm";
 		$requete = $this->dbh->prepare($select);
-		$requete->bindValue(":idB", $idFilm);
+		// $requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
 	}
@@ -141,7 +183,7 @@ class FilmManager extends \W\Manager\Manager {
 				and	films.id	= $tableLiaison.idFilm
 				and	films.id	= $idFilm";
 		$requete = $this->dbh->prepare($select);
-		$requete->bindValue(":idB", $idFilm);
+		// $requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
 	}
@@ -172,9 +214,9 @@ class FilmManager extends \W\Manager\Manager {
 			from
 					films
 			where
-					id	= :idB";
+					id	= $id";
 		$requete = $this->dbh->prepare($select);
-		$requete->bindValue(":idB", $id);
+//		$requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();   // PDO::FETCH_ASSOC    ne passe pas, cf + bas aussi **************************************************
 
@@ -191,9 +233,9 @@ class FilmManager extends \W\Manager\Manager {
 				and	fi.idTypeFilm		= ty.id
 				and	fi.idCouleur		= co.id
 				and	fi.idCensure		= ce.id
-				and	fi.id		= :idB";
+				and	fi.id		= $id";
 		$requete = $this->dbh->prepare($select);
-		$requete->bindValue(":idB", $id);
+		// $requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();
 
