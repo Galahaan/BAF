@@ -8,19 +8,11 @@ use \Manager\FilmManager;
 
 
 // --------------------------------------------------------------
-// Gestion de la pagination
+// Constantes liées à la pagination
 // --------------------------------------------------------------
-define("DEFAULT_PAGINATION",            '');    
-define("PAGER_PAGINATION",              'pager');  
-define("ALPHANUMERIC_PAGINATION",       'alphanumeric');
 
-    define("NB_FILM_PAGE",          '26');
-    
-    define("LF",                    "\n"); // Line Feed
-    define("TABULATION_01",         "\t");
-    define("TABULATION_02",         "\t\t");
-    define("TABULATION_03",         "\t\t\t");
-    define("TABULATION_04",         "\t\t\t\t");
+define("NB_FILM_PAGE",   '26');
+define("MODE_PAGINATION", ''  );    // vide par défaut '' ou 'pager' ou 'alphanumeric' (mais les 2 derniers ne fonctionnent pas)
 
 
 class FilmController extends Controller
@@ -58,11 +50,7 @@ class FilmController extends Controller
 			$manager = new FilmManager();
 			$nbFilms = $manager->getNbFilmsSelection("\"" . $theme . "\"");
 
-			$modePagination = DEFAULT_PAGINATION;
-			//$modePagination = ALPHANUMERIC_PAGINATION;
-			//$modePagination = PAGER_PAGINATION;
-
-			//$page = (isset($_GET['p']) ? $_GET['p'] : 1); 		// Initialisation du numéro de page à 1
+			$modePagination = MODE_PAGINATION;
 
 			//-------------------------------------------------------------------------------------
 			// Gestion de la pagination numérique
