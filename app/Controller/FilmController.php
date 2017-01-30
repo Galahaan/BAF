@@ -33,9 +33,22 @@ class FilmController extends Controller
 
 	public function listerSelections($theme)
 	{
-		$manager = new FilmManager();
-		$resultat = $manager->getSelection("\"" . $theme . "\"");
-		$this->show('film/pageSelections', ['resultat' => $resultat]);
+		if( ! isset($_POST['validationSelections']) ){
+
+			// affichage de la sélection selon le thème choisi : Palmes d'Or, 007, Films vus, etc ...
+			$manager = new FilmManager();
+			$resultat = $manager->getSelection("\"" . $theme . "\"");
+			$this->show('film/pageSelections', ['resultat' => $resultat]);
+		}
+		else{
+
+			// traitement du formulaire envoyé par pageSelection :
+			$manager = new FilmManager();
+			$manager->setSelectionsPerso($_POST);
+
+			// avant de faire une page de confirmation d'enregistrement des données :
+			//$this->redirectToRoute('pageAccueil');
+		}
 	}
 
 	public function listerCriteres()

@@ -54,14 +54,14 @@ class FilmManager extends \W\Manager\Manager {
 		// C'était une très belle requête, mais ce n'est pas gérable une fois dans la page des résultats ... :-(
 		//
 		// $select = "select distinct fs.idFilm as id, f.titreFr, f.anneeProd, fs.annee as anneeSel, f.urlAffiche, sp.libelle as perso
-		// 			from 			selections s, films f, utilisateur_selectionperso usp,
+		// 			from 			selections s, films f, utilisateurs u,
 		// 							film_selection fs
 		// 			left join 		selectionsperso sp
 		// 			on 				fs.idFilm = sp.idFilm
 		// 			where 			fs.idFilm = f.id
 		// 						and fs.idSelection = s.id
 		// 						and s.theme = $theme
-		// 						and usp.idUtilisateur = :idUB". $orderBy;
+		// 						and u.id = :idUB". $orderBy;
 		// $requete = $this->dbh->prepare($select);
 		// $requete->bindValue(":idUB", $_SESSION['user']['id']);
 		// $requete->execute();
@@ -79,19 +79,22 @@ class FilmManager extends \W\Manager\Manager {
 		$listeFilms[] = $requete->fetchAll();
 
 		// maintenant, on repasse la liste en revue, et on associe les infos utilisateur (vu, à voir, préféré,  ...)
-		foreach($listeFilms[1] as $index => $film){
-			$select = "select 	sp.libelle
-						from 	utilisateur_selectionperso usp, selectionsperso sp
-						where 	usp.idSelectionPerso = sp.id
-							and usp.idUtilisateur = :idUB
-							and sp.idFilm = :idFB";
+		// sauf qu'il faut tester $_SESSION avant, sinon ça bug : user undefined !
+		if( ! empty($_SESSION) ){
+			foreach($listeFilms[1] as $index => $film){
+				$select = "select 	sp.libelle
+							from 	utilisateurs u, selectionsperso sp
+							where 	u.id = sp.idUtilisateur
+								and u.id = :idUB
+								and sp.idFilm = :idFB";
 
-			$requete = $this->dbh->prepare($select);
-			$requete->bindValue(":idUB", $_SESSION['user']['id']);
-			$requete->bindValue(":idFB", $film['id']);
-			$requete->execute();
-			$listeInfosUtilisateur = $requete->fetchAll();
-			$listeFilms[1][$index]['perso'] = $listeInfosUtilisateur;
+				$requete = $this->dbh->prepare($select);
+				$requete->bindValue(":idUB", $_SESSION['user']['id']);
+				$requete->bindValue(":idFB", $film['id']);
+				$requete->execute();
+				$listeInfosUtilisateur = $requete->fetchAll();
+				$listeFilms[1][$index]['perso'] = $listeInfosUtilisateur;
+			}
 		}
 		return $listeFilms;
 	}
@@ -139,7 +142,6 @@ class FilmManager extends \W\Manager\Manager {
 				and	$table.id	= $tableLiaison.$idL
 				and	films.id	= $idFilm";
 		$requete = $this->dbh->prepare($select);
-		// $requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
 	}
@@ -183,7 +185,6 @@ class FilmManager extends \W\Manager\Manager {
 				and	films.id	= $tableLiaison.idFilm
 				and	films.id	= $idFilm";
 		$requete = $this->dbh->prepare($select);
-		// $requete->bindValue(":idB", $idFilm);
 		$requete->execute();
 		return $requete->fetchAll();
 	}
@@ -216,7 +217,6 @@ class FilmManager extends \W\Manager\Manager {
 			where
 					id	= $id";
 		$requete = $this->dbh->prepare($select);
-//		$requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();   // PDO::FETCH_ASSOC    ne passe pas, cf + bas aussi **************************************************
 
@@ -235,7 +235,6 @@ class FilmManager extends \W\Manager\Manager {
 				and	fi.idCensure		= ce.id
 				and	fi.id		= $id";
 		$requete = $this->dbh->prepare($select);
-		// $requete->bindValue(":idB", $id);
 		$requete->execute();
 		$film[] = $requete->fetch();
 
@@ -257,7 +256,46 @@ class FilmManager extends \W\Manager\Manager {
 		// La méthode retourne le film complet :
 		return $film;
 	}
-}
 
+	//////////////////////////////       setSelectionsPerso       //////////////////////////////
+	//
+	// en entrée : 		donnees = 	tableau de l'ensemble des cases cochées par l'utilisateur
+	//								(vu, à voir, préféré) de la précédente sélection
+	//								(ex.: Palmes d'Or, 007, Césars, ...)
+	//
+	// en sortie : 		
+	//
+	// 		Cette méthode stocke en BDD les infos spécifiques utilisateur.
+	//
+	public function setSelectionsPerso($donnees){
+		echo "<br>";
+		debug($donnees);
+
+		// il n'y a pas besoin de vérifier si l'utilisateur existe déjà dans la table des sélections perso
+		// avant d'insérer les données en BDD, puisqu'il y a une correspondance directe entre
+		// id de 'utilisateurs' et idUtilisateur de 'selectionsperso' :
+		$idUser = $_POST['idUser'];
+
+		// il n'y a plus qu'à insérer les nouvelles données
+		// en effet, les cases non cochées ne sont pas transmises,
+		// les cases déjà cochées renvoient des 'on',
+		// seules les cases nouvellement cochées renvoient leur code (vu, av, tr)
+		foreach( $donnees as $index => $filmSel ){
+			if( $index != 'validationSelections' && $index != 'idUser' ){
+				foreach( $filmSel as $valeur ){
+					if( $valeur != 'on' ){
+						// par défaut, quand on ne modifie pas une case déjà cochée,
+						// les navigateurs envoient des 'on' au lieu de la valeur prévue ... :-(
+						$insert = "insert into selectionsperso (idUtilisateur, libelle, idFilm)
+									values ($idUser, '$valeur', $index)";
+						echo $insert . "<br>";
+						$requete = $this->dbh->prepare($insert);
+						$requete->execute();
+					}
+				}
+			}
+		}
+	}
+}
 
 ?>
