@@ -13,15 +13,37 @@ class FilmManager extends \W\Manager\Manager {
 	// on crée ici nos propres méthodes spécialisées
 	// (en plus de celles héritées de la classe mère Manager)
 
+	////////////////////////            getNbFilmsSelection            /////////////////////////
+	//
+	// en entrée : 		theme 		= thème de la sélection (ex.: Palmes d'Or, 007, Césars, ...)
+	//
+	// en sortie : 		nombre de films répondant au thème de la sélection
+	//
+	// 		Cette méthode retourne le nombre de films répondant au thème de la sélection.
+	//
+	public function getNbFilmsSelection($theme){
+		
+		$select = "select count(fs.idSelection) as nb from film_selection fs, selections s where s.theme = $theme and fs.idSelection = s.id";
+		$requete = $this->dbh->prepare($select);
+		$requete->execute();
+		$nbFilms = $requete->fetch()['nb'];
+		return $nbFilms;
+	}
+
 	/////////////////////////////            getSelection            /////////////////////////////
 	//
-	// en entrée : 		theme 	= thème de la sélection (ex.: Palmes d'Or, 007, Césars, ...)
+	// en entrée : 		theme 		= thème de la sélection (ex.: Palmes d'Or, 007, Césars, ...)
+	//
+	// 					offset 		= pour le calcul de la pagination
+	//
+	// 					nbLignes 	= nb de lignes max retournées par la requête
+	// 									(pour le calcul de la pagination)
 	//
 	// en sortie : 		liste des films appartenant à ce thème
 	//
 	// 		Cette méthode retourne une sélection de films appartenant à un thème.
 	//
-	public function getSelection($theme){
+	public function getSelection($theme, $offset, $nbLignes){
 		$listeFilms = [];
 
 		$select = "select * from selections where theme = $theme";
@@ -68,12 +90,12 @@ class FilmManager extends \W\Manager\Manager {
 		// $listeFilmUtil[] = $requete->fetchAll();
 
 		// on récupère les infos principales du film à afficher :
-		$select = "select	fs.idFilm as id, f.titreFr, f.anneeProd, fs.annee as anneeSel, f.urlAffiche, f.id as perso
+		$select = "select	fs.idFilm as id, f.titreFr, f.synopsis, f.anneeProd, fs.annee as anneeSel, f.urlAffiche, f.id as perso
 						from		film_selection fs, selections s, films f
 						where		s.theme		= $theme
 							and		fs.idSelection	= s.id
 							and		fs.idFilm		= f.id
-						".$orderBy;
+						".$orderBy." limit $offset, $nbLignes";
 		$requete = $this->dbh->prepare($select);
 		$requete->execute();
 		$listeFilms[] = $requete->fetchAll();

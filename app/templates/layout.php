@@ -7,6 +7,7 @@
 
 	<title>ma BAF - <?= $this->e($title) ?></title>
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/styles.css') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/custom-portfolio.css') ?>">	
 </head>
 
 <body>

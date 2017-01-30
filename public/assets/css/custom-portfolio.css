@@ -1,0 +1,43 @@
+/**********************************************/
+/*************** Main Section *****************/
+/**********************************************/
+
+@media screen and (max-width: 1600px)
+{
+	main{
+		max-width:1400px;
+		margin: auto;
+	}
+}
+
+
+/**************************************************/
+/*************** Custom Portfolio *****************/
+/**************************************************/
+
+.custom-post{
+	width:185px;
+	height:400px;
+	margin:15px 8px 0 7px;	
+	float:left;
+}
+
+.custom-poster{
+	background:#fff;
+	box-shadow: 0px 1px 3px #909090;
+	border-radius: 4px;
+	-webkit-border-radius: 4px; 
+	-moz-border-radius: 4px;
+	padding:10px;
+	position:relative;
+	height:380px;
+	overflow:hidden;
+}
+
+.custom-poster img{
+	width:165px;
+	height:236px;
+	margin-bottom:5px;
+}
+
+

@@ -22,7 +22,7 @@
 
 		['GET', '/film/[i:id]', 'Film#afficherFilm', 'pageFilm'],
 
-		['GET|POST', '/selections/[a:theme]', 'Film#listerSelections', 'pageSelections'],
+		['GET|POST', '/selections/[a:theme]/[i:p]', 'Film#listerSelections', 'pageSelections'],
 
 		['GET|POST', '/criteres', 'Film#listerCriteres', 'pageCriteres'],
 
