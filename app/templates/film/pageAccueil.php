@@ -24,28 +24,19 @@
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/palmesOr.png') ?>" alt="" class="taille_img">
-			
-			<?php if( ! empty($_SESSION) ) : // cas où un utilisateur est connecté ?>
-				<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr"]) ?>" class="taille_a couleur_recompenses">
-					<span class="affichage_titre">
-						Palmes d'Or
-					</span>
-					<span class="affichage_text">
-						<!--  -->
-					</span>
-				</a>
-			<?php else : // cas où personne n'est connecté ?>
-				<a href="<?= $this->url('pageConnexion') ?>" class="taille_a couleur_recompenses">
-					<span class="affichage_titre">
-						Palmes d'Or
-					</span>
-				</a>
-			<?php endif ?>
+			<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
+				<span class="affichage_titre">
+					Palmes d'Or
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
 		</div>
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/cesars.jpg') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "cesars"]) ?>" class="taille_a couleur_recompenses">
+			<a href="<?= $this->url('pageSelections', ['theme' => "cesars", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
 				<span class="affichage_titre">
 					Césars
 				</span>
@@ -57,7 +48,7 @@
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/oscars.jpg') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "oscars"]) ?>" class="taille_a couleur_recompenses">
+			<a href="<?= $this->url('pageSelections', ['theme' => "oscars", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
 				<span class="affichage_titre">
 					Oscars
 				</span>
@@ -69,7 +60,7 @@
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/oursOr.jpg') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "oursOr"]) ?>" class="taille_a couleur_recompenses">
+			<a href="<?= $this->url('pageSelections', ['theme' => "oursOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
 				<span class="affichage_titre">
 					Ours d'Or
 				</span>
@@ -110,7 +101,7 @@
 
 		<div class="item autres">
 			<img src="<?= $this->assetUrl('img/accueil/autres/007.png') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "007"]) ?>" class="taille_a couleur_autres">
+			<a href="<?= $this->url('pageSelections', ['theme' => "007", 'p' => 1]) ?>" class="taille_a couleur_autres">
 				<span class="affichage_titre">
 					007
 				</span>
