@@ -49,26 +49,33 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Fonctionnalités</h3>
-			<ul class="listes">
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			<h3>Fonctionnalités principales :</h3>
+			<p> (disponibles et à vanir !.. )</p>
+			<ul>
+				<li>cocher les films vus
+					<p>(ou importer une liste .txt ou .csv)</p>
 				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+			
+				<li>cocher les films à voir</li>
+				
+				<li>associer de nombreux commentaires personnels aux films vus
+					<p>(date, lieu, ...)</p>
 				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+				
+				<li>donner sa propre note à un film vu</li>
+
+				<li>consulter la base de données sous de multiples angles :
+					<ul>
+						<li>thèmes prédéfinis : grands festivals, classiques, UGC 2016, James Bond, ...</li>
+						<li>thèmes personnels : films vus, à voir, préférés, en possession de tel ou tel support, ...</li>
+						<li>genres : comédie dramatique, aventure, ...</li>
+						<li>recherche multicritère</li>
+					</ul>
 				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-				</li>
+
+				<li>échanger sa liste de films préférés avec un autre internaute</li>
+
+				<li>etc ...</li>
 			</ul>
 		</div>
 	</div>

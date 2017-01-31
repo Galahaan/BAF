@@ -1,7 +1,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="col-md-8">
-                <h3>Contact</h3>
+                <h3><a href="<?= $this->url('pageContacts') ?>">Contacts ...</a></h3>
                     <p>
                         N'hésitez pas à nous laisser votre avis, faire des critiques, des suggestions, etc ...
                     </p>
@@ -42,6 +42,5 @@
 
 <!--isotope here...-->
 <script src="<?= $this->assetUrl('js/isotope.pkgd.min.js') ?>"></script>
-
 <!--Custom Js file here ... -->
 <script src="<?= $this->assetUrl('js/script.js') ?>"></script>

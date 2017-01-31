@@ -6,8 +6,8 @@
 	<?php $this->insert('layoutFiles/head') ?>
 
 	<title>ma BAF - <?= $this->e($title) ?></title>
-	<link rel="stylesheet" href="<?= $this->assetUrl('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/custom-portfolio.css') ?>">	
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/styles.css') ?>">
 </head>
 
 <body>
@@ -17,8 +17,9 @@
 			<?php $this->insert('layoutFiles/nav') ?>
 		    <div class="img_header">
 			    <img src="<?= $this->assetUrl('/img/background_image_1.png') ?>" alt="background_image">
-			    <h1>la Boîte à films</h1>
-			    <h3><?= ! empty($_SESSION) ? "de " . $_SESSION['user']['prenom'] . " ". $_SESSION['user']['nom'] : "" ?></h3>
+			    <h1>la Boîte à Films</h1>
+			    <span>Gestion complète d'une cinémathèque</span>
+			    <p><?= ! empty($_SESSION) ? "de " . $_SESSION['user']['prenom'] . " ". $_SESSION['user']['nom'] : "" ?></p>
 		    </div>
 		</header>
 

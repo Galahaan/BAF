@@ -12,4 +12,6 @@
     <link rel="stylesheet" href="<?= $this->assetUrl('css/bootstrap.min.css') ?>">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= $this->assetUrl('css/bootstrap.css') ?>">
+    
     <link rel="stylesheet" href="<?= $this->assetUrl('css/style-isotope.css') ?>">
+
