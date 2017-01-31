@@ -1,10 +1,24 @@
-<?php $this->layout('layout', ['title' => $films[0]['titre']]) ?>
+<?php $this->layout('layout', ['title' => $perso]) ?>
+
 
 <?php $this->start('main_content') ?>
 
-	<h1><?= $films[0]['titre'] ?> ...</h1>
+	<h1>Ma sélection personnelle ...</h1>
 	<p>
-		<?= $films[0]['description'] ?>
+	<?php
+		switch ($perso) {
+			case 'vu':
+				echo " ... de films déjà vus.";
+				break;
+			
+			case 'av':
+				echo " ... des films à voir.";
+				break;
+			
+			case 'pr':
+				echo " ... de mes films préférés.";
+		}
+	?>
 	</p>
 
 	<?php
@@ -12,16 +26,18 @@
 		$offset = $eltsPagination['offset'];
 		$modePagination = $eltsPagination['modePagination'];
 		$nbTotalPages = $eltsPagination['nbTotalPages'];
+		//debug($films);
 	?>
+
 
 	<?php if( ! empty($_SESSION) ) : ?>
 
     <?php if ($page > 0){ ?>
         <!-- Content -->
         <main>
-            <?= affichage_pagination($this, $page, $nbTotalPages, $modePagination, $theme); ?>
-            <?= affichage_liste_film($this, $films[1]); ?>
-            <?= affichage_pagination($this, $page, $nbTotalPages, $modePagination, $theme); ?>
+            <?= affichage_pagination($this, $page, $nbTotalPages, $modePagination, $perso); ?>
+            <?= affichage_liste_film($this, $films); ?>
+            <?= affichage_pagination($this, $page, $nbTotalPages, $modePagination, $perso); ?>
         </main>
     <?php } ?>
 
@@ -33,17 +49,15 @@
 function affichage_liste_film($cetObjet, $films){
     $nbFilms = count($films);
     $flux = '';
-
     if ($nbFilms > 0)
     {
         foreach ($films as $film)
         {
-        	($film['anneeSel']) ? $annee = "(" . $film['anneeSel'] . ")" : $annee = "(" . $film['anneeProd'] . ")";
         	$flux .= '<a href="' . $cetObjet->url('pageFilm', ['id' => $film['id']]) . '">';
 			$flux .= '<div class="custom-post">';
             $flux .= '<div class="custom-poster">';
             $flux .= '<img src="' . $cetObjet->assetUrl('img/affichesFilms/') . $film['urlAffiche'] . '" alt="' . $film['titreFr'] . '" />';
-            $flux .= '<p class="titreFr">' . substr($film['titreFr'], 0, 20) . '</p><p class="annee">' . $annee . '</p><p class="synopsis">' . $film['synopsis'] . '</p>';
+            $flux .= '<p class="titreFr">' . substr($film['titreFr'], 0, 20) . '</p><p class="annee">' . $film['anneeProd'] . '</p><p class="synopsis">' . $film['synopsis'] . '</p>';
             $flux .= '</div>';
             $flux .= '</div>';
             $flux .= '</a>';
@@ -227,29 +241,33 @@ function affichage_pagination($cetObjet, $page, $nb_total_pages, $mode, $theme){
 	        $flux .= '<div class="col-md-12">';
 	        $flux .= '<ul class="pagination">';
 	        $flux .= '<li>';
-	        $flux .= '<a href="' . $cetObjet->url('pageSelections', ['theme' => $theme, 'p' => 1]) . '">&laquo;</a>';
+	        $flux .= '<a href="' . $cetObjet->url('pagePersos', ['theme' => $theme, 'p' => 1]) . '">&laquo;</a>';
 	        $flux .= '</li>';  
 
 	        for($i=1; $i<=$nb_total_pages; $i++){
 	            if ($i == $page){
-	                $flux .= '<li class="active">' . '<a href="' . $cetObjet->url('pageSelections', ['theme' => $theme, 'p' => $i]) . '">' .
+	                $flux .= '<li class="active">' . '<a href="' . $cetObjet->url('pagePersos', ['theme' => $theme, 'p' => $i]) . '">' .
 	$i . '</a>' . '</li>';
 
 	            } else {
-	                $flux .= '<li>' . '<a href="' . $cetObjet->url('pageSelections', ['theme' => $theme, 'p' => $i]) . '">' .
+	                $flux .= '<li>' . '<a href="' . $cetObjet->url('pagePersos', ['theme' => $theme, 'p' => $i]) . '">' .
 	$i . '</a>' . '</li>';
 	            }
 	        }
 
 	        $flux .= '<li>';
-	        $flux .= '<a href="' . $cetObjet->url('pageSelections', ['theme' => $theme, 'p' => $nb_total_pages]) . '">&raquo;</a>';
+	        $flux .= '<a href="' . $cetObjet->url('pagePersos', ['theme' => $theme, 'p' => $nb_total_pages]) . '">&raquo;</a>';
 	        $flux .= '</li>'; 
 	        $flux .= '</ul>';
 	        $flux .= '</div>';
 	        $flux .= '</div>' . "\n" . "<!-- /.row -->";
     	}
     }
+
     return $flux;
+
+
+    /* <a href="<?= $this->url('pagePersos', ['theme' => "oursOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses"> */
 }
 
 

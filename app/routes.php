@@ -16,16 +16,16 @@
 		['GET', '/', 'Film#accueil', 'pageAccueil'],
 
 		['GET', '/apropos', 'Film#aPropos', 'pageApropos'],
-		//  quand l'url finit par "/apropos"
-		//  => ça appelle la fonction     aPropos()     du FilmController.php
-		//  => et le contenu du paragraphe à insérer dans le layout de la page est dans pageApropos.php
+
+		['GET', '/selections/[a:theme]/[i:p]', 'Film#listerSelections', 'pageSelections'],
 
 		['GET', '/film/[i:id]', 'Film#afficherFilm', 'pageFilm'],
 
-		['GET|POST', '/selections/[a:theme]/[i:p]', 'Film#listerSelections', 'pageSelections'],
+		['GET', '/criteres', 'Film#listerCriteres', 'pageCriteres'],
 
-		['GET|POST', '/criteres', 'Film#listerCriteres', 'pageCriteres'],
+		['GET', '/selection/[a:perso]/[i:p]', 'Film#listerPersos', 'pagePersos'],
 
+		['GET', '/selection/[a:genre]/[i:p]', 'Film#listerGenres', 'pageGenres'],
 
 		//////////////////////////       Gestion des utilisateurs       /////////////////////////
 		//
