@@ -16,16 +16,6 @@ class UserController extends Controller
 	{
 		if( isset($_POST['inscription'])){
 
-			// faire tous les tests sur le contenu des champs ICI :  ***************************************************************
-			// ceux des 2 managers
-
-			// on construit un tableau '$contenuForm' contenant à la fois les valeurs des champs et les messages d'erreurs
-//			$contenuForm =~ $_POST;
-			// si c'est pas bon, on renvoie vers la page inscription avec les infos pré-remplies + erreurs
-//			$this->show('user/pageInscription', ['contenuForm' => $contenuForm]);
-
-			//**********************************************************************************************************************
-
 			// on crypte le mot de passe
 			$_POST['tabFormUs']['password'] = password_hash($_POST['tabFormUs']['password'], PASSWORD_DEFAULT);
 

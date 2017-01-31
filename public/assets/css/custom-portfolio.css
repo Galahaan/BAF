@@ -15,6 +15,26 @@
 /*************** Custom Portfolio *****************/
 /**************************************************/
 
+.titreFr{
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.annee{
+	text-align: center;
+	font-size: 1.2rem;
+	margin-bottom: 0;
+}
+
+.synopsis{
+	text-align: justify;
+	font-size: 1.2rem;
+	margin-bottom: 0;
+	height: 8.5rem;
+	overflow: hidden;
+}
+
 .custom-post{
 	width:185px;
 	height:400px;

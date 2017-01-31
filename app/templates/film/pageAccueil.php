@@ -22,6 +22,31 @@
 		<!-- Groupe des genres (aventure, comédie dramatique, comédie, policier, drame, etc ...)   -->
 		<!-- Groupe des autres présélections (classiques, cultes, UGC, etc ...)                    -->
 
+
+		<div class="item autres">
+			<img src="<?= $this->assetUrl('img/accueil/autres/007.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "007", 'p' => 1]) ?>" class="taille_a couleur_autres">
+				<span class="affichage_titre">
+					007
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item genres">
+			<img src="<?= $this->assetUrl('img/accueil/genres/comDra.jpg') ?>" alt="" class="taille_img">
+			<a href="#" class="taille_a couleur_genres">
+				<span class="affichage_titre">
+					Comédies dramatiques
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/palmesOr.png') ?>" alt="" class="taille_img">
 			<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
@@ -45,6 +70,32 @@
 				</span>
 			</a>
 		</div>
+
+		<div class="item autres">
+			<img src="<?= $this->assetUrl('img/accueil/autres/cdc.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "cdc"]) ?>" class="taille_a couleur_autres">
+				<span class="affichage_titre">
+					Sélection Cahiers du Cinéma 2016
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<?php if( ! empty($_SESSION) ) : ?>
+		<div class="item selectionsPerso">
+			<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pagePersos', ['perso' => "pr", 'p' => 1]) ?>" class="taille_a couleur_selectionsPerso">
+				<span class="affichage_titre">
+					Films préférés
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+		<?php endif ?>
 
 		<div class="item recompenses">
 			<img src="<?= $this->assetUrl('img/accueil/recompenses/oscars.jpg') ?>" alt="" class="taille_img">
@@ -70,46 +121,19 @@
 			</a>
 		</div>
 
-
 		<?php if( ! empty($_SESSION) ) : ?>
-			<div class="item selectionsPerso">
-				<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
-				<a href="#" class="taille_a couleur_selectionsPerso">
-					<span class="affichage_titre">
-						Films vus
-					</span>
-					<span class="affichage_text">
-						<!--  -->
-					</span>
-				</a>
-			</div>
+		<div class="item selectionsPerso">
+			<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pagePersos', ['perso' => "av", 'p' => 1]) ?>" class="taille_a couleur_selectionsPerso">
+				<span class="affichage_titre">
+					Films à voir
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
 		<?php endif ?>
-
-
-		<div class="item genres">
-			<img src="<?= $this->assetUrl('img/accueil/genres/comDra.jpg') ?>" alt="" class="taille_img">
-			<a href="#" class="taille_a couleur_genres">
-				<span class="affichage_titre">
-					Comédie dramatique
-				</span>
-				<span class="affichage_text">
-					<!--  -->
-				</span>
-			</a>
-		</div>
-
-
-		<div class="item autres">
-			<img src="<?= $this->assetUrl('img/accueil/autres/007.png') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "007", 'p' => 1]) ?>" class="taille_a couleur_autres">
-				<span class="affichage_titre">
-					007
-				</span>
-				<span class="affichage_text">
-					<!--  -->
-				</span>
-			</a>
-		</div>
 
 		<div class="item autres">
 			<img src="<?= $this->assetUrl('img/accueil/autres/ugc.jpg') ?>" alt="" class="taille_img">
@@ -123,17 +147,19 @@
 			</a>
 		</div>
 
-		<div class="item autres">
-			<img src="<?= $this->assetUrl('img/accueil/autres/cdc.png') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "cdc"]) ?>" class="taille_a couleur_autres">
+		<?php if( ! empty($_SESSION) ) : ?>
+		<div class="item selectionsPerso">
+			<img src="<?= $this->assetUrl('img/accueil/selectionsPerso/vus.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pagePersos', ['perso' => "vu", 'p' => 1]) ?>" class="taille_a couleur_selectionsPerso">
 				<span class="affichage_titre">
-					Sélection Cahiers du Cinéma 2016
+					Films vus
 				</span>
 				<span class="affichage_text">
 					<!--  -->
 				</span>
 			</a>
 		</div>
+		<?php endif ?>
 
 	</div>
 </div>
