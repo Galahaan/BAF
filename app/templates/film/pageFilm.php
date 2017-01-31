@@ -14,18 +14,12 @@
 				</a>
 			</div>
 			<div class="col-md-4 descriptif">
-	<!-- Titre Fr -->
 				<h3><?= $film[0]['titreFr'] ?>
 				<?php if( $film[0]['anneeProd'] != 0 ) : ?>
 					(<?= $film[0]['anneeProd'] ?>)
 				<?php endif ?>
 				</h3>
-	<!-- fin titre Fr -->
-
-	<!-- Titre Or (si différent du Fr) -->
 				<?= ( $film[0]['titreOr'] == $film[0]['titreFr'] ) ? "" : "<h4>".$film[0]['titreOr']."</h4>" ?>
-	<!-- fin titre Or -->
-
 				<ul>
 					<?php
 					foreach($film[7] as $profession){
@@ -34,7 +28,6 @@
 					foreach($film[7] as $profession){
 						if($profession['prof'] == 'realis'){
 							echo "<li>Réalisateur : ".$profession['nom']."</li>"; } }
-	// Distributeur : différentes valeurs possibles
 					if( $film[1]['distributeur'] != "Inconnu" ){
 						if( $film[1]['urlDistributeur'] != "" ){
 							echo "<li>Distributeur : <a href=\"" . $film[1]['urlDistributeur'] . "\" target=\"_blank\">" . $film[1]['distributeur'] . "</a></li>";
@@ -43,13 +36,9 @@
 					else{
 						"<p>Distributeur : " . $film[1]['distributeur'] . "</p>";
 					}
-	// fin distributeur
 					?>
-	<!-- Type de film : long métrage / court métrage / ... -->
-					<?= $film[1]['typeFilm'] == "Inconnu" ? "" : "<li>" . $film[1]['typeFilm'] ?><!-- la fin du li est au § suivant -->
-	<!-- Nationalité : différentes valeurs possibles et multiples -->
+					<?= $film[1]['typeFilm'] == "Inconnu" ? "" : "<li>" . $film[1]['typeFilm'] ?>
 		<?php if( ! isset( $film[5][0]['nationalite'] ) || $film[5][0]['nationalite'] == "Inconnu" ) : ?>
-			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 		<?php else : ?>
 			(
 			<?php foreach($film[5] as $nationalites) : ?>
@@ -57,20 +46,14 @@
 					<?= "$nationalite " ?>
 				<?php endforeach ?>
 			<?php endforeach ?>
-			)</li><!-- li commencé au début du § sur le type de film -->
+			)</li>
 		<?php endif ?>
-	<!-- fin nationalité -->
-	<!-- Date de sortie -->
 					<?= $film[0]['dateSortieFr'] == "0000-00-00" ? "" : "<li>" . date('d M Y', strtotime($film[0]['dateSortieFr'])) . "</li>" ?>
-	<!-- Couleur / Noir & Blanc / les 2 -->
 					<?= $film[1]['couleur'] == "Inconnu" ? "" : "<li>" . $film[1]['couleur'] . "</li>" ?>
-	<!-- Durée -->
 					<?php if( $film[0]['duree'] != 0 ) : ?>
 						<li><?= floor($film[0]['duree'] / 3600) ?> h <?= ($film[0]['duree'] % 3600)/60 ?></li>
 					<?php endif ?>
-	<!-- Genre : différentes valeurs possibles et multiples -->
 						<?php if( ! isset( $film[3][0]['genre'] ) || $film[3][0]['genre'] == "Inconnu" ) : ?>
-							<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 						<?php elseif( isset( $film[3][1] ) ) : ?>
 							<li>Genres : 
 							<?php foreach($film[3] as $genres) : ?>
@@ -84,11 +67,8 @@
 								<?= $film[3][0]['genre'] ?>
 							</li>
 						<?php endif ?>
-	<!-- fin genre -->
 
-	<!-- Langue : différentes valeurs possibles et multiples -->
 					<?php if( ! isset( $film[2][0]['langue'] ) || $film[2][0]['langue'] == "Inconnu" ) : ?>
-						<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 					<?php elseif( isset( $film[2][1] ) ) : ?>
 						<li>Langues originales du film : 
 						<?php foreach($film[2] as $langues) : ?>
@@ -102,11 +82,7 @@
 							<?= $film[2][0]['langue'] ?>
 						</li>
 					<?php endif ?>
-	<!-- fin langue -->
-
-	<!-- Sélection : différentes valeurs possibles et multiples -->
 					<?php if( ! isset( $film[6][0]['libelle'] ) ) : ?>
-						<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 					<?php else : ?>
 						<li>
 							Sélection(s) : 
@@ -116,9 +92,6 @@
 							<?php endforeach ?>
 						</li>
 					<?php endif ?>
-	<!-- fin sélection -->
-
-	<!-- IMDB notes et nb votes -->
 					<?php if( $film[0]['noteIMDB'] != 0 ) : ?>
 						<li>IMDB : <?= $film[0]['noteIMDB'] ?> /10
 						<?php if( $film[0]['nbVotesIMDB'] == 0 ) : ?>
@@ -128,25 +101,16 @@
 							</li>
 						<?php endif ?>
 					<?php endif ?>
-	<!-- fin IMDB -->
 				</ul>
 			</div>
 			<div class="col-md-5">
-	<!-- Bande annonce -->
 				<?php if( $film[0]['urlBA'] != 0 ) : ?>
 					<iframe src='http://www.allocine.fr/_video/iblogvision.aspx?cmedia=<?= $film[0]['urlBA'] ?>' style='width:480px; height:270px'>
 					</iframe>
 				<?php endif ?>
-				<?php //if( $film[0]['urlBA'] != 0 ) : ?>
-					<!-- <a href="http://www.allocine.fr/video/player_gen_cmedia=<?= $film[0]['urlBA'] ?>&cfilm=<?= $film[0]['idAllocine'] ?>.html" target="_blank">Bande annonce</a> -->
-				<?php //endif ?>
-	<!-- fin bande annonce -->
-
-	<!-- Censure -->
 				<p style="text-align:center;">
 					<?= $film[1]['censure'] == "Inconnu" ? "" : "Attention : " . $film[1]['censure'] ?>
 				</p>
-	<!-- fin censure -->
 
 			</div>
 		</div>
@@ -162,11 +126,8 @@
 		<h4>Synopsis</h4>
 		<p><?= $film[0]['synopsis'] ?></p>
 	</div>
-
-	<!-- "Acteurs" (personne ayant participé au film) -->
 		<?php
 			if( ! isset( $film[7][0]['prof'] ) ){
-				// on ne fait rien, si ce n'est éviter l'affichage d'une erreur !
 			}
 			elseif( isset( $film[7][1] ) ){
 
@@ -175,10 +136,6 @@
 					echo "<div class='row'>";
 
 						foreach($film[7] as $index => $acteur){
-						// pour voir tous les "acteurs" (au sens "personne ayant participé au film") :
-						// $acteur['profession'] . " : " . $acteur['nom']
-
-						// pour voir les XX principaux acteurs (au sens "acteur" proprement dit) :
 							if( ($acteur['prof'] == 'acteur') && $index <= NB_MAX_ACTEURS_AFFICHES ){
 							echo "<div class='col-md-3 col-sm-6 hero-feature taille'>";
 								echo "<div class='thumbnail'>";
@@ -199,7 +156,6 @@
 				echo $film[7][0]['profession'] . " " . $film[7][0]['nom'];
 			}
 		?>
-	<!-- fin Acteurs -->
 
 	<div class="container">
 	<?php foreach($film[7] as $profession){
@@ -228,9 +184,7 @@
 		<?= $film[0]['bof'] == 0 ? "" : "<h4>Box office : " . $film[0]['bof'] . "</h4>" ?>
 	</div>
 	<div class="container">
-	<!-- § sur les différentes valeurs possibles et multiples des mots-clés -->
 		<?php if( ! isset( $film[4][0]['motcle'] ) || $film[4][0]['motcle'] == "Inconnu" ) : ?>
-			<!-- on ne fait rien, si ce n'est éviter l'affichage d'une erreur ! -->
 		<?php elseif( isset( $film[4][1] ) ) : ?>
 			<p>Mots-clés :
 				<p>
@@ -246,7 +200,6 @@
 				<?= $film[4][0]['motcle'] ?>
 			</p>
 		<?php endif ?>
-	<!-- fin du § sur les mots-clés -->
 	</div>
 
 <?php $this->stop('main_content') ?>
