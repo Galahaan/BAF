@@ -73,7 +73,7 @@
 
 		<div class="item autres">
 			<img src="<?= $this->assetUrl('img/accueil/autres/cdc.png') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "cdc"]) ?>" class="taille_a couleur_autres">
+			<a href="<?= $this->url('pageSelections', ['theme' => "cdc", 'p' => 1]) ?>" class="taille_a couleur_autres">
 				<span class="affichage_titre">
 					Sélection Cahiers du Cinéma 2016
 				</span>
@@ -137,7 +137,7 @@
 
 		<div class="item autres">
 			<img src="<?= $this->assetUrl('img/accueil/autres/ugc.jpg') ?>" alt="" class="taille_img">
-			<a href="<?= $this->url('pageSelections', ['theme' => "ugc"]) ?>" class="taille_a couleur_autres">
+			<a href="<?= $this->url('pageSelections', ['theme' => "ugc", 'p' => 1]) ?>" class="taille_a couleur_autres">
 				<span class="affichage_titre">
 					Sélection UGC 2016
 				</span>
