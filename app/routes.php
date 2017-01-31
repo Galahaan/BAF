@@ -15,6 +15,8 @@
 
 		['GET', '/', 'Film#accueil', 'pageAccueil'],
 
+		['GET', '/contacts', 'Film#contacts', 'pageContacts'],
+
 		['GET', '/apropos', 'Film#aPropos', 'pageApropos'],
 
 		['GET', '/selections/[a:theme]/[i:p]', 'Film#listerSelections', 'pageSelections'],

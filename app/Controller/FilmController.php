@@ -28,6 +28,11 @@ class FilmController extends Controller
 		$this->show('film/pageAccueil');
 	}
 
+	public function contacts()
+	{
+		$this->show('film/pageContacts');
+	}
+
 	public function aPropos()
 	{
 		$this->show('film/pageApropos');
