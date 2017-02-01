@@ -50,7 +50,7 @@
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Fonctionnalités principales :</h3>
-			<p> (disponibles et à vanir !.. )</p>
+			<p> (disponibles et à venir !.. )</p>
 			<ul>
 				<li>cocher les films vus
 					<p>(ou importer une liste .txt ou .csv)</p>

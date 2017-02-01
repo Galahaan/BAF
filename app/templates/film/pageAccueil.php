@@ -8,10 +8,10 @@
 		<!-- Liste des icônes de groupes pour tri rapide -->
 		<ul>
 			<li class="active" data-filter="*">Tous les thèmes !</li>
-			<li data-filter=".recompenses"><img src="<?= $this->assetUrl('img/accueil/icones/recompenses.png') ?>" alt=""></li>
-			<li data-filter=".genres"><img src="<?= $this->assetUrl('img/accueil/icones/clap.png') ?>" alt=""></li>
-			<li data-filter=".selectionsPerso"><img src="<?= $this->assetUrl('img/accueil/icones/selectionsPerso.png') ?>" alt=""></li>
-			<li data-filter=".autres"><img src="<?= $this->assetUrl('img/accueil/icones/points.png') ?>" alt=""></li>
+			<li data-filter=".recompenses"><img src="<?= $this->assetUrl('img/accueil/icones/recompenses.png') ?>" alt=""><p>Récompenses</p></li>
+			<li data-filter=".genres"><img src="<?= $this->assetUrl('img/accueil/icones/clap.png') ?>" alt=""><p>Genres</p></li>
+			<li data-filter=".selectionsPerso"><img src="<?= $this->assetUrl('img/accueil/icones/selectionsPerso.png') ?>" alt=""><p>Perso</p></li>
+			<li data-filter=".autres"><img src="<?= $this->assetUrl('img/accueil/icones/points.png') ?>" alt=""><p>Autres</p></li>
 		</ul>
 	</div>
 
@@ -52,6 +52,18 @@
 			<a href="<?= $this->url('pageSelections', ['theme' => "palmesOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
 				<span class="affichage_titre">
 					Palmes d'Or
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item autres">
+			<img src="<?= $this->assetUrl('img/accueil/autres/sf.jpg') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "sf", 'p' => 1]) ?>" class="taille_a couleur_autres">
+				<span class="affichage_titre">
+					S.F.
 				</span>
 				<span class="affichage_text">
 					<!--  -->
@@ -140,6 +152,30 @@
 			<a href="<?= $this->url('pageSelections', ['theme' => "ugc", 'p' => 1]) ?>" class="taille_a couleur_autres">
 				<span class="affichage_titre">
 					Sélection UGC 2016
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item recompenses">
+			<img src="<?= $this->assetUrl('img/accueil/recompenses/lionsOr.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "lionsOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
+				<span class="affichage_titre">
+					Lions d'Or
+				</span>
+				<span class="affichage_text">
+					<!--  -->
+				</span>
+			</a>
+		</div>
+
+		<div class="item autres">
+			<img src="<?= $this->assetUrl('img/accueil/recompenses/hollywood.png') ?>" alt="" class="taille_img">
+			<a href="<?= $this->url('pageSelections', ['theme' => "hollywood", 'p' => 1]) ?>" class="taille_a couleur_autres">
+				<span class="affichage_titre">
+					Hollywood's 100
 				</span>
 				<span class="affichage_text">
 					<!--  -->
