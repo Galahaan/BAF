@@ -160,7 +160,7 @@
 		</div>
 
 		<div class="item recompenses">
-			<img src="<?= $this->assetUrl('img/accueil/recompenses/lionsOr.png') ?>" alt="" class="taille_img">
+			<img src="<?= $this->assetUrl('img/accueil/recompenses/lionsOr.jpg') ?>" alt="" class="taille_img">
 			<a href="<?= $this->url('pageSelections', ['theme' => "lionsOr", 'p' => 1]) ?>" class="taille_a couleur_recompenses">
 				<span class="affichage_titre">
 					Lions d'Or
@@ -172,7 +172,7 @@
 		</div>
 
 		<div class="item autres">
-			<img src="<?= $this->assetUrl('img/accueil/recompenses/hollywood.png') ?>" alt="" class="taille_img">
+			<img src="<?= $this->assetUrl('img/accueil/autres/hollywood.jpg') ?>" alt="" class="taille_img">
 			<a href="<?= $this->url('pageSelections', ['theme' => "hollywood", 'p' => 1]) ?>" class="taille_a couleur_autres">
 				<span class="affichage_titre">
 					Hollywood's 100

@@ -87,7 +87,7 @@
 						<li>
 							Sélection(s) : 
 							<?php foreach($film[6] as $selection) : ?>
-								<a href="<?= $this->url('pageSelections', ['theme' => $selection['theme']]) ?>"><?= $selection['libelle'] ?></a>
+								<a href="<?= $this->url('pageSelections', ['theme' => $selection['theme'], 'p' => 1 ]) ?>"><?= $selection['libelle'] ?></a>
 								<?= ($selection['anneeRecompense'] != "") ? " (". $selection['anneeRecompense'] .") " : ""?>
 							<?php endforeach ?>
 						</li>
