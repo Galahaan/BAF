@@ -43,7 +43,7 @@ function affichage_liste_film($cetObjet, $films){
 			$flux .= '<div class="custom-post">';
             $flux .= '<div class="custom-poster">';
             $flux .= '<img src="' . $cetObjet->assetUrl('img/affichesFilms/') . $film['urlAffiche'] . '" alt="' . $film['titreFr'] . '" />';
-            $flux .= '<p class="titreFr">' . substr($film['titreFr'], 0, 20) . '</p><p class="annee">' . $annee . '</p><p class="synopsis">' . $film['synopsis'] . '</p>';
+            $flux .= '<p class="titreFr">' . substr($film['titreFr'], 0, 20) . '</p><p class="annee">' . $annee . '</p><p class="synopsis"><abbr title="' . $film['synopsis'] . '">Synopsis</abbr></p>';
             $flux .= '</div>';
             $flux .= '</div>';
             $flux .= '</a>';
