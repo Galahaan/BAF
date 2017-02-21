@@ -1,6 +1,4 @@
-/docs/
 /vendor/
 /app/config.php
-/phpDocumentor.phar
 .vagrant/
 /public/assets/img/affichesFilms/
