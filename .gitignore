@@ -2,3 +2,4 @@
 /app/config.php
 .vagrant/
 /public/assets/img/affichesFilms/
+/public/assets/img/affichesFilmsReduites/
